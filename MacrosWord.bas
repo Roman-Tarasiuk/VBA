@@ -510,3 +510,15 @@ End Function
 Sub ClearClipboard() ' Call this Sub, it uses previous arrangements
     Call FuncClearClipboard
 End Sub
+
+
+Sub CopyHyperlinkToClipboard()
+' Add reference to %systemroot%\System32\FM20.dll
+    Dim a As String
+    Dim obj As New DataObject
+    
+    a = Selection.Hyperlinks(1).Address
+    
+    obj.SetText a
+    obj.PutInClipboard
+End Sub
