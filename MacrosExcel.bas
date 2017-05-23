@@ -35,7 +35,7 @@ Private Function FuncClearClipboard()
     EmptyClipboard
     CloseClipboard
 End Function
-
+ 
 Sub ClearClipboard()
     Call FuncClearClipboard
 End Sub
@@ -113,7 +113,7 @@ End Sub
 Sub UnSelectCurrentArea()
     Dim Area As Range
     Dim RR As Range
-
+    
     For Each Area In Selection.Areas
         If Application.Intersect(Area, ActiveCell) Is Nothing Then
             If RR Is Nothing Then
@@ -173,4 +173,26 @@ Sub ColorClear()
         .TintAndShade = 0
         .PatternTintAndShade = 0
     End With
+End Sub
+
+
+'
+'
+Sub UniqueValues()
+    Selection.AdvancedFilter Action:=xlFilterInPlace, Unique:=True
+    ActiveWindow.SmallScroll Down:=-3
+End Sub
+
+
+'
+'
+Sub CopyHyperlinkToClipboard()
+' Add reference to %systemroot%\System32\FM20.dll
+    Dim a As String
+    Dim Obj As New DataObject
+    
+    a = Selection.Hyperlinks(1).Address
+    
+    Obj.SetText a
+    Obj.PutInClipboard
 End Sub

@@ -1,4 +1,6 @@
 Attribute VB_Name = "NewMacros"
+Option Explicit
+
 Sub En()
 Attribute En.VB_ProcData.VB_Invoke_Func = "Normal.NewMacros.En"
     Selection.LanguageID = wdEnglishUS
