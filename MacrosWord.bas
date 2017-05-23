@@ -514,13 +514,32 @@ Sub ClearClipboard() ' Call this Sub, it uses previous arrangements
 End Sub
 
 
+'
+'
 Sub CopyHyperlinkToClipboard()
 ' Add reference to %systemroot%\System32\FM20.dll
-    Dim a As String
-    Dim obj As New DataObject
+    Dim result As String
+    Dim Obj As New DataObject
     
-    a = Selection.Hyperlinks(1).Address
+    result = Selection.Hyperlinks(1).Address
     
-    obj.SetText a
-    obj.PutInClipboard
+    Obj.SetText result
+    Obj.PutInClipboard
+End Sub
+
+
+'
+'
+Sub CopyAllHyperlinksToClipboard()
+    Dim hl As Hyperlink
+    Dim result As String
+    Dim Obj As New DataObject
+    
+    result = ""
+    For Each hl In ActiveDocument.Hyperlinks
+        result = result + hl.Address + vbCr
+    Next
+    
+    Obj.SetText result
+    Obj.PutInClipboard
 End Sub
