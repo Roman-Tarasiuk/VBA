@@ -1,3 +1,5 @@
+' Maybe some code lines (like Attribute) are redundant
+
 Attribute VB_Name = "NewMacros"
 Option Explicit
 
@@ -542,4 +544,50 @@ Sub CopyAllHyperlinksToClipboard()
     
     Obj.SetText result
     Obj.PutInClipboard
+End Sub
+
+
+'
+'
+Sub ToggleBookmarks()
+    ActiveWindow.View.ShowBookmarks = _
+      Not ActiveWindow.View.ShowBookmarks
+End Sub
+
+
+'
+' https://windowssecrets.com/forums/showthread.php/119477-Word-Locating-Embedded-objects-files-residing-in-the-document
+Sub EmbeddedObjects()
+  Dim varObj As Variant
+  Dim n As Integer
+  Dim names As String
+  For Each varObj In ActiveDocument.InlineShapes
+    If varObj.Type = wdInlineShapeEmbeddedOLEObject Then
+      n = n + 1
+      names = names + CStr(n) + ") " + varObj.OLEFormat.IconLabel + vbCrLf
+    End If
+  Next varObj
+  For Each varObj In ActiveDocument.Shapes
+    If varObj.Type = msoEmbeddedOLEObject Then
+      n = n + 1
+    End If
+  Next varObj
+  MsgBox names + "--" + vbCrLf + "Total: " + CStr(n) + " files and shapes", vbInformation
+End Sub
+
+
+'
+' https://www.extendoffice.com/documents/word/750-word-select-all-objects.html
+Sub EmbededObjectsSelectAll()
+    Dim tempTable As Object
+    Application.ScreenUpdating = False
+    ActiveDocument.DeleteAllEditableRanges wdEditorEveryone
+    
+    For Each tempTable In ActiveDocument.InlineShapes
+        tempTable.Range.Paragraphs(1).Range.Editors.Add wdEditorEveryone
+    Next
+    
+    ActiveDocument.SelectAllEditableRanges wdEditorEveryone
+    ActiveDocument.DeleteAllEditableRanges wdEditorEveryone
+    Application.ScreenUpdating = True
 End Sub
