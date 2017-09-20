@@ -613,6 +613,11 @@ End Function
 
 Private Sub appWord_WindowSelectionChange(ByVal Sel As Selection)
  Dim diff As Integer
+ ' Workaround – it seems that Trim() does not trim a paragraph mark.
+ If EndsWith(Sel.Text, Chr(13)) Then
+    Sel.End = Sel.End - 1
+ End If
+ 
  If EndsWith(Sel.Text, " ") And (Len(Sel.Text) > 1) Then
     diff = Len(Sel.Text) - Len(Trim(Sel.Text))
     If diff <> Len(Sel.Text) Then
