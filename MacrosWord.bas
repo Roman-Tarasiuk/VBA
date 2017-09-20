@@ -591,3 +591,40 @@ Sub EmbededObjectsSelectAll()
     ActiveDocument.DeleteAllEditableRanges wdEditorEveryone
     Application.ScreenUpdating = True
 End Sub
+
+
+'
+' Selection without trailing spaces
+'
+1. Add Class Module (named e.g. SelectionHandler):
+Option Explicit
+
+' https://msdn.microsoft.com/en-us/vba/word-vba/articles/application-windowselectionchange-event-word
+' https://msdn.microsoft.com/VBA/Word-VBA/articles/using-events-with-the-application-object-word
+Public WithEvents appWord As Word.Application
+
+' http://excelrevisited.blogspot.com/2012/06/endswith.html
+Public Function EndsWith(str As String, ending As String) As Boolean
+     Dim endingLen As Integer
+     Dim ss As String
+     endingLen = Len(ending)
+     EndsWith = (Right(UCase(str), endingLen) = UCase(ending))
+End Function
+
+Private Sub appWord_WindowSelectionChange(ByVal Sel As Selection)
+ Dim diff As Integer
+ If EndsWith(Sel.Text, " ") And (Len(Sel.Text) > 1) Then
+    diff = Len(Sel.Text) - Len(Trim(Sel.Text))
+    If diff <> Len(Sel.Text) Then
+        Sel.End = Sel.End - diff
+    End If
+ End If
+End Sub
+2. Add Normal Module:
+Option Explicit
+
+Dim X As New SelectionHandler
+
+Sub AAHandleSelection()
+    Set X.appWord = Word.Application
+End Sub
