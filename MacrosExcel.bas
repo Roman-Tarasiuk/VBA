@@ -204,3 +204,18 @@ Sub CopyHyperlinkToClipboard()
     Obj.SetText a
     Obj.PutInClipboard
 End Sub
+
+
+Option Explicit
+
+Sub CopyCellValueToClipboard()
+'
+' CopyCellValueToClipboard Macro
+'
+' Keyboard Shortcut: Ctrl+q
+'
+    Dim MyData As Object
+    Set MyData = New DataObject
+    MyData.SetText Selection.Text
+    MyData.PutInClipboard
+End Sub
