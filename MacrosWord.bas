@@ -4,16 +4,20 @@ Attribute VB_Name = "NewMacros"
 Option Explicit
 
 Sub En()
-Attribute En.VB_ProcData.VB_Invoke_Func = "Normal.NewMacros.En"
     Selection.LanguageID = wdEnglishUS
-    Selection.NoProofing = False
+    ' Selection.NoProofing = False
     Application.CheckLanguage = True
 End Sub
 
 Sub Ua()
-Attribute Ua.VB_ProcData.VB_Invoke_Func = "Normal.NewMacros.Ua"
     Selection.LanguageID = wdUkrainian
-    Selection.NoProofing = False
+    ' Selection.NoProofing = False
+    Application.CheckLanguage = True
+End Sub
+
+Sub Ru()
+    Selection.LanguageID = wdRussian
+    ' Selection.NoProofing = False
     Application.CheckLanguage = True
 End Sub
 
@@ -51,7 +55,7 @@ Sub EditCopyWithoutTailSpaces()
 End Sub
 
 Sub PdfClipboardJoin()
-Attribute PdfClipboardJoin.VB_ProcData.VB_Invoke_Func = "Normal.NewMacros.PdfClipboardJoin"
+' Attribute PdfClipboardJoin.VB_ProcData.VB_Invoke_Func = "Normal.NewMacros.PdfClipboardJoin"
 ' Alt+Z
     Selection.Find.ClearFormatting
     Selection.Find.Replacement.ClearFormatting
@@ -71,12 +75,12 @@ Attribute PdfClipboardJoin.VB_ProcData.VB_Invoke_Func = "Normal.NewMacros.PdfCli
 End Sub
 
 Sub ForeColor1()
-Attribute ForeColor1.VB_ProcData.VB_Invoke_Func = "Normal.NewMacros.ForeColor"
+' Attribute ForeColor1.VB_ProcData.VB_Invoke_Func = "Normal.NewMacros.ForeColor"
     Selection.Font.TextColor = 15773696 ' +++
 End Sub
 
 Sub DottedUnderline()
-Attribute DottedUnderline.VB_ProcData.VB_Invoke_Func = "Normal.NewMacros.DottedUnderline"
+' Attribute DottedUnderline.VB_ProcData.VB_Invoke_Func = "Normal.NewMacros.DottedUnderline"
     With Selection.Font
         .underline = wdUnderlineDotted
         .underlineColor = wdColorAutomatic
@@ -114,7 +118,7 @@ Sub OALDTagToFormatted(tag As String, color As Double, underline As Integer, und
         .MatchAllWordForms = False
     End With
     Selection.Find.Execute Replace:=wdReplaceAll
-    
+
     With Selection.Find
         .Text = "</" + tag + ">"
         .Replacement.Text = "====/" + tag + "===="
@@ -128,7 +132,7 @@ Sub OALDTagToFormatted(tag As String, color As Double, underline As Integer, und
         .MatchAllWordForms = False
     End With
     Selection.Find.Execute Replace:=wdReplaceAll
-    
+
     Selection.Find.ClearFormatting
     Selection.Find.Replacement.ClearFormatting
     With Selection.Find.Replacement.Font
@@ -151,7 +155,7 @@ Sub OALDTagToFormatted(tag As String, color As Double, underline As Integer, und
             .Name = fontName
         End If
     End With
-    
+
     With Selection.Find
         .Text = "====" + tag + "====*====/" + tag + "===="
         .Replacement.Text = ""
@@ -165,7 +169,7 @@ Sub OALDTagToFormatted(tag As String, color As Double, underline As Integer, und
         .MatchWildcards = True
     End With
     Selection.Find.Execute Replace:=wdReplaceAll
-    
+
     Selection.Find.ClearFormatting
     Selection.Find.Replacement.ClearFormatting
     With Selection.Find
@@ -181,8 +185,8 @@ Sub OALDTagToFormatted(tag As String, color As Double, underline As Integer, und
         .MatchAllWordForms = False
     End With
     Selection.Find.Execute Replace:=wdReplaceAll
-    
-        With Selection.Find
+
+    With Selection.Find
         .Text = "====/" + tag + "===="
         .Replacement.Text = ""
         .Forward = True
@@ -225,7 +229,7 @@ Sub OALDCards()
         .BookFoldPrintingSheets = 1
         .GutterPos = wdGutterPosLeft
     End With
-   
+
     ' Font and paragraph settings
     Selection.WholeStory
     Selection.Font.Size = 26
@@ -255,7 +259,7 @@ Sub OALDCards()
         .MirrorIndents = False
         .TextboxTightWrap = wdTightNone
     End With
-   
+
     ' Replacement 1
     Selection.Find.ClearFormatting
     Selection.Find.Replacement.ClearFormatting
@@ -290,7 +294,7 @@ Sub OALDCards()
         .MatchWildcards = True
     End With
     Selection.Find.Execute Replace:=wdReplaceAll
-   
+
     ' Replacement 2
     Selection.Find.ClearFormatting
     Selection.Find.Replacement.ClearFormatting
@@ -307,7 +311,7 @@ Sub OALDCards()
         .MatchAllWordForms = False
     End With
     Selection.Find.Execute Replace:=wdReplaceAll
-   
+
     ' Replacement 3
     Selection.Find.ClearFormatting
     With Selection.Find.Font
@@ -333,7 +337,7 @@ Sub OALDCards()
         .MatchAllWordForms = False
     End With
     Selection.Find.Execute Replace:=wdReplaceAll
-   
+
     ' Replacement 4
     Selection.Find.ClearFormatting
     Selection.Find.Replacement.ClearFormatting
@@ -350,7 +354,7 @@ Sub OALDCards()
         .MatchAllWordForms = False
     End With
     Selection.Find.Execute Replace:=wdReplaceAll
-   
+
     ' Clearing begin and end of document
     Selection.HomeKey Unit:=wdStory
     Selection.Delete Unit:=wdCharacter, Count:=1
@@ -359,7 +363,7 @@ Sub OALDCards()
     Selection.Font.bold = wdToggle
     Selection.EndKey Unit:=wdStory
     Selection.TypeBackspace
-   
+
     ' Replacement 5
     Selection.Find.ClearFormatting
     Selection.Find.Replacement.ClearFormatting
@@ -376,7 +380,7 @@ Sub OALDCards()
         .MatchAllWordForms = False
     End With
     Selection.Find.Execute Replace:=wdReplaceAll
-    
+
     ' Formatting tags
     ' OALDTagToFormatted(tag As String, color As Double, underline As Integer, underlineColor As Double, bold As Boolean, italic As Boolean, fontName As String)
     Call OALDTagToFormatted("oald8", 9792578, wdUnderlineNone, 0, False, False, "")
@@ -462,7 +466,7 @@ End Sub
 
 
 Sub SwiftExtractClearEmail()
-Attribute SwiftExtractClearEmail.VB_ProcData.VB_Invoke_Func = "Normal.NewMacros.SwiftExtractClearEmail"
+' Attribute SwiftExtractClearEmail.VB_ProcData.VB_Invoke_Func = "Normal.NewMacros.SwiftExtractClearEmail"
 '
 ' SwiftExtractClearEmail Макрос
 '
@@ -476,20 +480,20 @@ Attribute SwiftExtractClearEmail.VB_ProcData.VB_Invoke_Func = "Normal.NewMacros.
     Call Replace("Кому: to@aval.ua", "")
     Call Replace("Дата: ^#^#.^#^#.^#^#^#^# ^#^#:^#^#", "")
     Call Replace("Тема: Statement SWIFT format MT ^#^#^#", "")
-    
+
     '//
-    
+
     Dim length, tmp As Integer
-    
+
     length = Word.ActiveDocument.Characters.Count
     Do
         tmp = length
         Call Replace("^p^p", "^p")
         length = Word.ActiveDocument.Characters.Count
     Loop While length <> tmp
-    
+
     '//
-    
+
     Call Replace("}^p", "}===^p")
     Call Replace("^p", "^t")
     Call Replace("===", "^p")
@@ -520,11 +524,12 @@ End Sub
 '
 Sub CopyHyperlinkToClipboard()
 ' Add reference to %systemroot%\System32\FM20.dll
+' using Tools | References...
     Dim result As String
     Dim Obj As New DataObject
-    
+
     result = Selection.Hyperlinks(1).Address
-    
+
     Obj.SetText result
     Obj.PutInClipboard
 End Sub
@@ -533,15 +538,17 @@ End Sub
 '
 '
 Sub CopyAllHyperlinksToClipboard()
+' Add reference to %systemroot%\System32\FM20.dll
+' using Tools | References...
     Dim hl As Hyperlink
     Dim result As String
     Dim Obj As New DataObject
-    
+
     result = ""
     For Each hl In ActiveDocument.Hyperlinks
         result = result + hl.Address + vbCr
     Next
-    
+
     Obj.SetText result
     Obj.PutInClipboard
 End Sub
@@ -582,11 +589,11 @@ Sub EmbededObjectsSelectAll()
     Dim tempTable As Object
     Application.ScreenUpdating = False
     ActiveDocument.DeleteAllEditableRanges wdEditorEveryone
-    
+
     For Each tempTable In ActiveDocument.InlineShapes
         tempTable.Range.Paragraphs(1).Range.Editors.Add wdEditorEveryone
     Next
-    
+
     ActiveDocument.SelectAllEditableRanges wdEditorEveryone
     ActiveDocument.DeleteAllEditableRanges wdEditorEveryone
     Application.ScreenUpdating = True
@@ -617,7 +624,7 @@ Private Sub appWord_WindowSelectionChange(ByVal Sel As Selection)
  If EndsWith(Sel.Text, Chr(13)) Then
     Sel.End = Sel.End - 1
  End If
- 
+
  If EndsWith(Sel.Text, " ") And (Len(Sel.Text) > 1) Then
     diff = Len(Sel.Text) - Len(Trim(Sel.Text))
     If diff <> Len(Sel.Text) Then
@@ -632,4 +639,273 @@ Dim X As New SelectionHandler
 
 Sub AAHandleSelection()
     Set X.appWord = Word.Application
+End Sub
+
+
+
+Sub AppendWorkFile(name)
+' Used by AddAllWorkFiles().
+'
+    Selection.InsertFile FileName:=name, Link:=False
+    Selection.TypeParagraph
+    Selection.TypeParagraph
+End Sub
+
+
+Sub AddAllWorkFiles()
+' Run the Sub in new Word document.
+    AppendWorkFile ("path\manual.docx")
+    ' -//-
+    
+    MsgBox "Done!"
+End Sub
+
+
+Sub TestForUnsavedChanges()
+    If ActiveDocument.Saved = False Then
+        MsgBox "This document contains unsaved changes."
+    Else
+        MsgBox "The document is saved."
+    End If
+End Sub
+
+
+Sub SaveWithCheck()
+    If ActiveDocument.Saved = False Then
+        ActiveDocument.Save
+    End If
+End Sub
+
+Sub SaveAllWithCheck()
+' https://www.extendoffice.com/documents/excel/2971-excel-save-all-open-files.html
+    Dim xWb As Document
+    For Each xWb In Application.Documents
+        If Not xWb.ReadOnly _
+                And xWb.Saved = False _
+        Then
+            xWb.Save
+        End If
+    Next
+End Sub
+
+Sub FindByShadingColor()
+    ' wdColorAutomatic
+    ' 49407 – Gold; 5287936 – Green;
+    ' -587137089 – Dark (Code)
+    SelectNext (-587137089)
+End Sub
+
+Sub FindByShadingColorExclude()
+    Dim SelStart As Double
+    Dim SelEnd As Double
+    Dim NewSelection As SelectionObject
+    Dim ExcludeColor As Double
+    
+    ExcludeColor = wdColorAutomatic
+    
+    SelStart = Selection.Start
+    SelEnd = Selection.End
+    Set NewSelection = SelectNext2(ExcludeColor)
+    
+    Do While NewSelection.SelStart = SelEnd
+        SelStart = NewSelection.SelStart
+        SelEnd = NewSelection.SelEnd
+        Set NewSelection = SelectNext2(ExcludeColor)
+    Loop
+    
+    Selection.Start = SelEnd
+    Selection.End = NewSelection.SelStart
+End Sub
+
+Function SelectNext(color As Double) As SelectionObject
+    Dim SelectionStart As Double
+    Dim SelectionEnd As Double
+    Dim SelectionFont As SelectionObject
+    Dim SelectionParagraph As SelectionObject
+    
+    SelectionStart = Selection.Start
+    SelectionEnd = Selection.End
+    
+    Set SelectionFont = SelectNextFont(color)
+    
+    Selection.Start = SelectionStart
+    Selection.End = SelectionEnd
+    
+    Set SelectionParagraph = SelectNextParagraph(color)
+    
+    If SelectionFont.SelStart < SelectionParagraph.SelStart _
+            And SelectionFont.SelEnd < SelectionParagraph.SelEnd _
+        Then
+        If (SelectionFont.SelStart > SelectionStart _
+                And SelectionParagraph.SelStart > SelectionStart) _
+            Or (SelectionFont.SelStart < SelectionStart _
+                And SelectionParagraph.SelStart < SelectionStart) _
+            Then
+            Set SelectNext = SelectionFont
+        Else
+            Set SelectNext = SelectionParagraph
+        End If
+    Else
+        If (SelectionFont.SelStart > SelectionStart _
+                And SelectionParagraph.SelStart > SelectionStart) _
+            Or (SelectionFont.SelStart < SelectionStart _
+                And SelectionParagraph.SelStart < SelectionStart) _
+            Then
+            Set SelectNext = SelectionParagraph
+        Else
+            Set SelectNext = SelectionFont
+        End If
+    End If
+    
+        Selection.Start = SelectNext.SelStart
+        Selection.End = SelectNext.SelEnd
+End Function
+
+Function SelectNextFont(color As Double) As SelectionObject
+    Dim result As SelectionObject
+    Set result = New SelectionObject
+    
+    Selection.Find.ClearFormatting
+    
+    Selection.Find.Font.Shading.BackgroundPatternColor = color
+    
+    With Selection.Find
+        .Text = ""
+        .Replacement.Text = ""
+        .Forward = True
+        .Wrap = wdFindContinue
+        .Format = True
+        .MatchCase = False
+        .MatchWholeWord = False
+        .MatchWildcards = False
+        .MatchSoundsLike = False
+        .MatchAllWordForms = False
+    End With
+    Selection.Find.Execute
+    
+    result.SelStart = Selection.Start
+    result.SelEnd = Selection.End
+    
+    Set SelectNextFont = result
+End Function
+
+Function SelectNextParagraph(color As Double) As SelectionObject
+    Dim result As SelectionObject
+    Set result = New SelectionObject
+    
+    Selection.Find.ClearFormatting
+    
+    Selection.Find.ParagraphFormat.Shading.BackgroundPatternColor = color
+    
+    With Selection.Find
+        .Text = ""
+        .Replacement.Text = ""
+        .Forward = True
+        .Wrap = wdFindContinue
+        .Format = True
+        .MatchCase = False
+        .MatchWholeWord = False
+        .MatchWildcards = False
+        .MatchSoundsLike = False
+        .MatchAllWordForms = False
+    End With
+    Selection.Find.Execute
+    
+    result.SelStart = Selection.Start
+    result.SelEnd = Selection.End
+    
+    Set SelectNextParagraph = result
+End Function
+
+Function SelectNext2(color As Double) As SelectionObject
+' https://answers.microsoft.com/en-us/msoffice/forum/msoffice_word-mso_other-mso_2007/find-shading/4c31b820-3457-453c-9b1c-672d41d7c013?auth=1
+' Does not work for styled paragraphs – maybe it's need to configure some Selection.Find's options.
+    Dim result As SelectionObject
+    Set result = New SelectionObject
+    
+    Selection.Find.ClearFormatting
+    '
+    ' ** Toggle the next two options to find in text or entire paragraph
+    'Selection.Find.Font.Shading.BackgroundPatternColor = color
+    Selection.Find.ParagraphFormat.Shading.BackgroundPatternColor = color
+    
+    With Selection.Find
+        .Text = ""
+        .Replacement.Text = ""
+        .Forward = True
+        .Wrap = wdFindContinue
+        .Format = True
+        .MatchCase = False
+        .MatchWholeWord = False
+        .MatchWildcards = False
+        .MatchSoundsLike = False
+        .MatchAllWordForms = False
+        '.Style = "Code"
+    End With
+    Selection.Find.Execute
+    
+    result.SelStart = Selection.Start
+    result.SelEnd = Selection.End
+    
+    Set SelectNext2 = result
+End Function
+
+Sub ManageDocumentsHistory()
+On Error GoTo TheError
+    Dim RecentFilesStr As String
+    Dim RecentFilesNum As Integer
+    
+    RecentFilesStr = InputBox("Enter recent files number (0-50):", , RecentFiles.Maximum)
+    
+    If RecentFilesStr = vbNullString Then
+        Exit Sub
+    End If
+    
+    RecentFilesNum = RecentFilesStr
+    
+    If RecentFilesNum < 0 Then
+        RecentFilesNum = 0
+    ElseIf RecentFilesNum > 50 Then
+        RecentFilesNum = 50
+    End If
+    
+    RecentFiles.Maximum = RecentFilesNum
+    GoTo TheEnd
+    
+TheError:
+    MsgBox "Input Error. Restart the macro and enter a correct number (0-50)."
+    Exit Sub
+TheEnd:
+End Sub
+
+Sub ZoomTo()
+On Error GoTo TheError
+    Dim PercentageStr As String
+    Dim PercentageNum As Integer
+    
+    PercentageStr = InputBox("Enter zoom percentage:", , ActiveWindow.ActivePane.View.Zoom.Percentage)
+    
+    If PercentageStr = vbNullString Then
+        Exit Sub
+    End If
+    
+    PercentageNum = PercentageStr
+    
+    If PercentageNum < 10 Then
+        PercentageNum = 10
+    ElseIf PercentageNum > 500 Then
+        PercentageNum = 500
+    End If
+    
+    ActiveWindow.ActivePane.View.Zoom.Percentage = PercentageNum
+    GoTo TheEnd
+    
+TheError:
+    MsgBox "Input Error. Restart the macro and enter a correct number (10-500)."
+    Exit Sub
+TheEnd:
+End Sub
+
+Sub ShowSelectionLength()
+    MsgBox "Selection length: " + CStr(Selection.End - Selection.Start) + "."
 End Sub

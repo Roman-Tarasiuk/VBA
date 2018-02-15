@@ -21,7 +21,7 @@ x=msgbox("Your Text Here" ,0, "Your Title Here")
 ' 4096 =System modal (all applications wont work until the user responds to the message box)
 
 
-Attribute VB_Name = "Module11"
+' Attribute VB_Name = "Module11"
 '
 ' ClearClipboard() with helper functions
 '
@@ -83,7 +83,7 @@ End Function
 '
 '
 Sub PasteFormat()
-Attribute PasteFormat.VB_ProcData.VB_Invoke_Func = "V\n14"
+' Attribute PasteFormat.VB_ProcData.VB_Invoke_Func = "V\n14"
     Selection.PasteSpecial Paste:=xlPasteFormats, Operation:=xlNone, _
         SkipBlanks:=False, Transpose:=False
 End Sub
@@ -147,8 +147,20 @@ Sub CellNumberFormat()
     Selection.NumberFormat = "0"
 End Sub
 
+Sub CellDateFormat()
+    Selection.NumberFormat = "dd/mm/yyyy"
+End Sub
+
+Sub CellTimeFormat()
+    Selection.NumberFormat = "hh:mm:ss"
+End Sub
+
 Sub CellDateTimeFormat()
-    Selection.NumberFormat = "dd/mm/yyyy h:mm:ss"
+    Selection.NumberFormat = "dd/mm/yyyy hh:mm:ss"
+End Sub
+
+Sub CellCurrencyFormat()
+    Selection.NumberFormat = "#,##0.00_?"
 End Sub
 
 
@@ -218,4 +230,62 @@ Sub CopyCellValueToClipboard()
     Set MyData = New DataObject
     MyData.SetText Selection.Text
     MyData.PutInClipboard
+End Sub
+
+
+'
+'
+Sub EmbeddedObjects()
+  Dim varObj As Variant
+  Dim n As Integer
+  Dim names As String
+  Dim Q As DataObject
+  Q = ActiveSheet
+  For Each varObj In ActiveDocument.InlineShapes
+    If varObj.Type = wdInlineShapeEmbeddedOLEObject Then
+      n = n + 1
+      names = names + CStr(n) + ") " + varObj.OLEFormat.IconLabel + vbCrLf
+    End If
+  Next varObj
+  For Each varObj In ActiveDocument.Shapes
+    If varObj.Type = msoEmbeddedOLEObject Then
+      n = n + 1
+    End If
+  Next varObj
+  MsgBox names + "--" + vbCrLf + "Total: " + CStr(n) + " files and shapes", vbInformation
+End Sub
+
+
+'
+'
+Sub TestForUnsavedChanges()
+    If ActiveWorkbook.Saved = False Then
+        MsgBox "This workbook contains unsaved changes."
+    Else
+        MsgBox "The workbook is saved."
+    End If
+End Sub
+
+
+Sub SaveWithCheck()
+    If ActiveWorkbook.Saved = False Then
+        ActiveWorkbook.Save
+    End If
+End Sub
+
+Sub SaveAll()
+' https://www.extendoffice.com/documents/excel/2971-excel-save-all-open-files.html
+    Dim xWb As Workbook
+    For Each xWb In Application.Workbooks
+        If Not xWb.ReadOnly _
+                And Windows(xWb.Name).Visible _
+                And xWb.Saved = False _
+        Then
+            xWb.Save
+        End If
+    Next
+End Sub
+
+Sub SecurityDDE()
+    Application.IgnoreRemoteRequests = False
 End Sub
