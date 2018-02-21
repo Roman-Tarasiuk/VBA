@@ -1,3 +1,30 @@
+' In ThisWorkbook
+Private Sub Workbook_NewSheet(ByVal Sh As Object)
+    Application.Run "Personal.xlsb!AADefaultStyle"
+End Sub
+
+' In ThisWorkbook
+Sub Auto_Open()
+    Application.Run "Personal.xlsb!AADefaultStyle"
+End Sub
+
+Meta Macro:
+' 'You will need to include a reference to Microsoft Visual Basic for Applications Extensibility and enable access to the VBA project module in the trust center settings.'
+' https://stackoverflow.com/questions/41226485/dynamically-create-macros-specifically-udfs-from-vba-code
+Sub CreateMacro()
+    Dim vbComp As VBComponent
+    Dim functionText As String
+
+    Set vbComp = ThisWorkbook.VBProject.VBComponents.Add(vbext_ct_StdModule)
+
+    functionText = "Function MyTest()" & vbCrLf
+    functionText = functionText + "MsgBox " & Chr(34) & "Hello World" & Chr(34) & vbCrLf
+    functionText = functionText + "End Function"
+
+    vbComp.CodeModule.AddFromString functionText
+End Sub
+
+
 '
 ' VBScript MessageBox
 
@@ -288,4 +315,104 @@ End Sub
 
 Sub SecurityDDE()
     Application.IgnoreRemoteRequests = False
+End Sub
+
+
+Sub FillUp()
+'
+' FillUp Macro
+'
+' Keyboard Shortcut: Ctrl+Shift+D
+'
+    Selection.FillUp
+End Sub
+
+Sub FillLeft()
+'
+' FillLeft Macro
+'
+' Keyboard Shortcut: Ctrl+Shift+R
+'
+    Selection.FillLeft
+End Sub
+
+Sub AADefaultStyle()
+    Cells.Select
+    With Selection.Font
+        .Name = "Calibri"
+        .Size = 12
+        .Strikethrough = False
+        .Superscript = False
+        .Subscript = False
+        .OutlineFont = False
+        .Shadow = False
+        .Underline = xlUnderlineStyleNone
+        .ThemeColor = xlThemeColorLight1
+        .TintAndShade = 0
+        .ThemeFont = xlThemeFontNone
+    End With
+    With Selection.Font
+        .Name = "Calibri"
+        .Size = 11
+        .Strikethrough = False
+        .Superscript = False
+        .Subscript = False
+        .OutlineFont = False
+        .Shadow = False
+        .Underline = xlUnderlineStyleNone
+        .ThemeColor = xlThemeColorLight1
+        .TintAndShade = 0
+        .ThemeFont = xlThemeFontNone
+    End With
+    Selection.ColumnWidth = 6.33
+    Selection.RowHeight = 15
+    Range("A1").Select
+End Sub
+
+Sub Swap2Rows()
+    Dim R As Integer
+    Dim S1, S2 As String
+    
+    R = Selection.Row
+    
+    Selection.EntireRow.Insert
+    S1 = CStr(R) + ":" + CStr(R)
+    S2 = CStr(R + 2) + ":" + CStr(R + 2)
+    Rows(S2).Select
+    Selection.Cut Destination:=Rows(S1)
+    Range(S2).Select
+    Selection.EntireRow.Delete
+End Sub
+
+Sub ZoomTo()
+'
+' ZoomTo Macro
+'
+
+'
+    On Error GoTo TheError
+    Dim PercentageStr As String
+    Dim PercentageNum As Integer
+    
+    PercentageStr = InputBox("Enter zoom percentage:", , ActiveWindow.Zoom)
+    
+    If PercentageStr = vbNullString Then
+        Exit Sub
+    End If
+    
+    PercentageNum = PercentageStr
+    
+    If PercentageNum < 10 Then
+        PercentageNum = 10
+    ElseIf PercentageNum > 400 Then
+        PercentageNum = 400
+    End If
+    
+    ActiveWindow.Zoom = PercentageNum
+    GoTo TheEnd
+    
+TheError:
+    MsgBox "Input Error. Restart the macro and enter a correct number (10-500)."
+    Exit Sub
+TheEnd:
 End Sub
