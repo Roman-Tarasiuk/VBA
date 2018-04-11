@@ -424,11 +424,20 @@ End Sub
 ' Put the macro into a book's Microsoft Excel Objects sheet.
 Private Sub Worksheet_Change(ByVal Target As Range)
     Dim KeyCells As Range
+    Dim val As String
 
     Set KeyCells = Range("V6:V6")
     
     If Not Application.Intersect(KeyCells, Range(Target.Address)) _
            Is Nothing Then
-        ActiveSheet.Range("$G$6:$V$3208").AutoFilter Field:=16, Criteria1:=Target.Value
+        ' empty cell – for all values
+        ' <> for non-empty values
+        ' abc*, *xyz – starts and ends with
+        val = Target.Value
+        If val = "" Then
+            ActiveSheet.Range("$G$6:$V$3208").AutoFilter Field:=16
+        Else
+            ActiveSheet.Range("$G$6:$V$3208").AutoFilter Field:=16, Criteria1:=val
+        End If
     End If
 End Sub
