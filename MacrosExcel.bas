@@ -385,11 +385,6 @@ Sub Swap2Rows()
 End Sub
 
 Sub ZoomTo()
-'
-' ZoomTo Macro
-'
-
-'
     On Error GoTo TheError
     Dim PercentageStr As String
     Dim PercentageNum As Integer
@@ -415,4 +410,25 @@ TheError:
     MsgBox "Input Error. Restart the macro and enter a correct number (10-500)."
     Exit Sub
 TheEnd:
+End Sub
+
+Sub FormulaStyle()
+    If Application.ReferenceStyle = xlA1 Then
+        Application.ReferenceStyle = xlR1C1
+    Else
+        Application.ReferenceStyle = xlA1
+    End If
+End Sub
+
+' The macro listens a cell change and applies the filter based on the changed value.
+' Put the macro into a book's Microsoft Excel Objects sheet.
+Private Sub Worksheet_Change(ByVal Target As Range)
+    Dim KeyCells As Range
+
+    Set KeyCells = Range("V6:V6")
+    
+    If Not Application.Intersect(KeyCells, Range(Target.Address)) _
+           Is Nothing Then
+        ActiveSheet.Range("$G$6:$V$3208").AutoFilter Field:=16, Criteria1:=Target.Value
+    End If
 End Sub

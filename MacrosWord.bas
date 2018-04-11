@@ -909,3 +909,7 @@ End Sub
 Sub ShowSelectionLength()
     MsgBox "Selection length: " + CStr(Selection.End - Selection.Start) + "."
 End Sub
+
+Sub ExplorePath()
+    Shell Environ ("windir") & "\Explorer.exe " & ActiveDocument.Path, vbMaximizedFocus
+End Sub
