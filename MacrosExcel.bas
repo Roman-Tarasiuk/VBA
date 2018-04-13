@@ -407,7 +407,7 @@ Sub ZoomTo()
     GoTo TheEnd
     
 TheError:
-    MsgBox "Input Error. Restart the macro and enter a correct number (10-500)."
+    MsgBox "Input Error. Try again and enter a correct number (10-500)."
     Exit Sub
 TheEnd:
 End Sub
@@ -441,3 +441,54 @@ Private Sub Worksheet_Change(ByVal Target As Range)
         End If
     End If
 End Sub
+
+<Version with multiple filtering fields>
+Const filterRange = "$B$3:$IX$3660"
+Const filterField1 = "$H$2"
+Const filterField2 = "$I$2"
+
+Private Sub btnClearFilter_Click()
+    On Error GoTo Exception
+    ' ActiveSheet.range("$C$3:$IX$3660").AutoFilter Field:=6
+    btnClearFilter.BackColor = &HC0C0C0
+    range(filterField1).Value = ""
+    range(filterField2).Value = ""
+    range(filterField1).Select
+    ActiveSheet.ShowAllData
+Exception:
+End Sub
+
+Private Sub Worksheet_Change(ByVal Target As range)
+    Dim KeyCells As range
+    Dim val As String
+
+    Set KeyCells = range("H2:I2")
+    
+    If Not Application.Intersect(KeyCells, range(Target.Address)) _
+           Is Nothing Then
+        ' empty cell – for all values
+        ' <> for non-empty values
+        ' abc*, *xyz – starts and ends with
+        val = Target.Value
+        
+        If val <> "" Then
+            btnClearFilter.BackColor = &H80FF&
+        End If
+        
+        If Target.Address = filterField1 Then
+            ApplyFilter ActiveSheet.range(filterRange), 6, val
+        ElseIf Target.Address = filterField2 Then
+            ApplyFilter ActiveSheet.range(filterRange), 7, val
+        End If
+    End If
+End Sub
+
+
+Sub ApplyFilter(r As range, col As Integer, val As String)
+    If val = "" Then
+        r.AutoFilter Field:=col
+    Else
+        r.AutoFilter Field:=col, Criteria1:=val
+    End If
+End Sub
+</Version with multiple filtering fields>
