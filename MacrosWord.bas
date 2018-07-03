@@ -1,7 +1,6 @@
-' Maybe some code lines (like Attribute) are redundant
-
-Attribute VB_Name = "NewMacros"
+>>>>
 Option Explicit
+
 
 Sub En()
     Selection.LanguageID = wdEnglishUS
@@ -9,11 +8,13 @@ Sub En()
     Application.CheckLanguage = True
 End Sub
 
+
 Sub Ua()
     Selection.LanguageID = wdUkrainian
     ' Selection.NoProofing = False
     Application.CheckLanguage = True
 End Sub
+
 
 Sub Ru()
     Selection.LanguageID = wdRussian
@@ -21,16 +22,6 @@ Sub Ru()
     Application.CheckLanguage = True
 End Sub
 
-Sub CopyFormat()
-Attribute CopyFormat.VB_ProcData.VB_Invoke_Func = "Normal.NewMacros.Макрос1"
-' Alt+C
-    Selection.CopyFormat
-End Sub
-
-Sub PasteFormat()
-' Alt+V
-    Selection.PasteFormat
-End Sub
 
 Sub PasteWithSelection()
 ' Ctrl+Alt+V
@@ -39,6 +30,7 @@ Sub PasteWithSelection()
     Selection.PasteAndFormat (wdFormatPlainText)
     Selection.Start = theStart
 End Sub
+
 
 Sub EditCopyWithoutTailSpaces()
 ' Ctrl+Alt+C
@@ -54,8 +46,8 @@ Sub EditCopyWithoutTailSpaces()
     Selection.Start = theStart
 End Sub
 
+
 Sub PdfClipboardJoin()
-' Attribute PdfClipboardJoin.VB_ProcData.VB_Invoke_Func = "Normal.NewMacros.PdfClipboardJoin"
 ' Alt+Z
     Selection.Find.ClearFormatting
     Selection.Find.Replacement.ClearFormatting
@@ -71,21 +63,22 @@ Sub PdfClipboardJoin()
         .MatchSoundsLike = False
         .MatchAllWordForms = False
     End With
-    Selection.Find.Execute Replace:=wdReplaceAll
+    Selection.Find.Execute replace:=wdReplaceAll
 End Sub
 
+
 Sub ForeColor1()
-' Attribute ForeColor1.VB_ProcData.VB_Invoke_Func = "Normal.NewMacros.ForeColor"
     Selection.Font.TextColor = 15773696 ' +++
 End Sub
 
+
 Sub DottedUnderline()
-' Attribute DottedUnderline.VB_ProcData.VB_Invoke_Func = "Normal.NewMacros.DottedUnderline"
     With Selection.Font
         .underline = wdUnderlineDotted
         .underlineColor = wdColorAutomatic
     End With
 End Sub
+
 
 Sub DottedUnderline2()
     With Selection.Font
@@ -94,11 +87,13 @@ Sub DottedUnderline2()
     End With
 End Sub
 
+
 Sub SmallCaps()
     With Selection.Font
         .SmallCaps = True
     End With
 End Sub
+
 
 Sub OALDTagToFormatted(tag As String, color As Double, underline As Integer, underlineColor As Double, _
                         bold As Boolean, italic As Boolean, fontName As String)
@@ -117,7 +112,7 @@ Sub OALDTagToFormatted(tag As String, color As Double, underline As Integer, und
         .MatchSoundsLike = False
         .MatchAllWordForms = False
     End With
-    Selection.Find.Execute Replace:=wdReplaceAll
+    Selection.Find.Execute replace:=wdReplaceAll
 
     With Selection.Find
         .Text = "</" + tag + ">"
@@ -131,7 +126,7 @@ Sub OALDTagToFormatted(tag As String, color As Double, underline As Integer, und
         .MatchSoundsLike = False
         .MatchAllWordForms = False
     End With
-    Selection.Find.Execute Replace:=wdReplaceAll
+    Selection.Find.Execute replace:=wdReplaceAll
 
     Selection.Find.ClearFormatting
     Selection.Find.Replacement.ClearFormatting
@@ -152,7 +147,7 @@ Sub OALDTagToFormatted(tag As String, color As Double, underline As Integer, und
             .italic = italic
         End If
         If fontName <> "" Then
-            .Name = fontName
+            .name = fontName
         End If
     End With
 
@@ -168,7 +163,7 @@ Sub OALDTagToFormatted(tag As String, color As Double, underline As Integer, und
         .MatchSoundsLike = False
         .MatchWildcards = True
     End With
-    Selection.Find.Execute Replace:=wdReplaceAll
+    Selection.Find.Execute replace:=wdReplaceAll
 
     Selection.Find.ClearFormatting
     Selection.Find.Replacement.ClearFormatting
@@ -184,7 +179,7 @@ Sub OALDTagToFormatted(tag As String, color As Double, underline As Integer, und
         .MatchSoundsLike = False
         .MatchAllWordForms = False
     End With
-    Selection.Find.Execute Replace:=wdReplaceAll
+    Selection.Find.Execute replace:=wdReplaceAll
 
     With Selection.Find
         .Text = "====/" + tag + "===="
@@ -198,8 +193,9 @@ Sub OALDTagToFormatted(tag As String, color As Double, underline As Integer, und
         .MatchSoundsLike = False
         .MatchAllWordForms = False
     End With
-    Selection.Find.Execute Replace:=wdReplaceAll
+    Selection.Find.Execute replace:=wdReplaceAll
 End Sub
+
 
 Sub OALDCards()
     ' Page setup
@@ -264,7 +260,7 @@ Sub OALDCards()
     Selection.Find.ClearFormatting
     Selection.Find.Replacement.ClearFormatting
     With Selection.Find
-        .Text = " – "
+        .Text = " i?? "
         .Replacement.Text = "^t"
         .Forward = True
         .Wrap = wdFindContinue
@@ -293,7 +289,7 @@ Sub OALDCards()
         .MatchSoundsLike = False
         .MatchWildcards = True
     End With
-    Selection.Find.Execute Replace:=wdReplaceAll
+    Selection.Find.Execute replace:=wdReplaceAll
 
     ' Replacement 2
     Selection.Find.ClearFormatting
@@ -310,7 +306,7 @@ Sub OALDCards()
         .MatchSoundsLike = False
         .MatchAllWordForms = False
     End With
-    Selection.Find.Execute Replace:=wdReplaceAll
+    Selection.Find.Execute replace:=wdReplaceAll
 
     ' Replacement 3
     Selection.Find.ClearFormatting
@@ -336,7 +332,7 @@ Sub OALDCards()
         .MatchSoundsLike = False
         .MatchAllWordForms = False
     End With
-    Selection.Find.Execute Replace:=wdReplaceAll
+    Selection.Find.Execute replace:=wdReplaceAll
 
     ' Replacement 4
     Selection.Find.ClearFormatting
@@ -353,11 +349,11 @@ Sub OALDCards()
         .MatchSoundsLike = False
         .MatchAllWordForms = False
     End With
-    Selection.Find.Execute Replace:=wdReplaceAll
+    Selection.Find.Execute replace:=wdReplaceAll
 
     ' Clearing begin and end of document
     Selection.HomeKey Unit:=wdStory
-    Selection.Delete Unit:=wdCharacter, Count:=1
+    Selection.Delete Unit:=wdCharacter, count:=1
     Selection.EndKey Unit:=wdLine, Extend:=wdExtend
     Selection.Font.Size = 32
     Selection.Font.bold = wdToggle
@@ -379,7 +375,7 @@ Sub OALDCards()
         .MatchSoundsLike = False
         .MatchAllWordForms = False
     End With
-    Selection.Find.Execute Replace:=wdReplaceAll
+    Selection.Find.Execute replace:=wdReplaceAll
 
     ' Formatting tags
     ' OALDTagToFormatted(tag As String, color As Double, underline As Integer, underlineColor As Double, bold As Boolean, italic As Boolean, fontName As String)
@@ -407,11 +403,11 @@ Sub OALDCards()
         .MatchSoundsLike = False
         .MatchAllWordForms = False
     End With
-    Selection.Find.Execute Replace:=wdReplaceAll
+    Selection.Find.Execute replace:=wdReplaceAll
 End Sub
 
 
-Sub Replace(oldValue As String, newValue As String)
+Sub replace(oldValue As String, newValue As String)
 '
 ' Used in Sub SwiftExtractClearEmail()
 '
@@ -429,95 +425,25 @@ Sub Replace(oldValue As String, newValue As String)
         .MatchSoundsLike = False
         .MatchAllWordForms = False
     End With
-    Selection.Find.Execute Replace:=wdReplaceAll
+    Selection.Find.Execute replace:=wdReplaceAll
 End Sub
-
-
-' Sub SwiftExtractClearEmail()
-' '
-' ' SwiftExtractClearEmail Макрос
-' '
-' '
-'     Call Replace("----- Переслано: Roman TARASIUK/LV/RBA-AVAL/UA дата: ^#^#.^#^#.^#^#^#^# ^#^#:^#^# -----", "")
-'     Call Replace("От: from@aval.ua", "")
-'     Call Replace("Кому: to@aval.ua, ", "")
-'     Call Replace("Кому: to@aval.ua", "")
-'     Call Replace("Дата: ^#^#.^#^#.^#^#^#^# ^#^#:^#^#", "")
-'     Call Replace("Тема: Statement SWIFT format MT ^#^#^#", "")
-'
-'     '//
-'
-'     Dim length, tmp As Integer
-'
-'     length = Word.ActiveDocument.Characters.Count
-'     Do
-'         tmp = length
-'         Call Replace("^p^p", "^p")
-'         length = Word.ActiveDocument.Characters.Count
-'     Loop While length <> tmp
-'
-'     '//
-'
-'     Call Replace("}^p", "}===^p")
-'     Call Replace("^p", " *** ")
-'     Call Replace("===", "^p")
-'     Call Replace("^p *** ", "^p")
-' End Sub
-
-
-Sub SwiftExtractClearEmail()
-' Attribute SwiftExtractClearEmail.VB_ProcData.VB_Invoke_Func = "Normal.NewMacros.SwiftExtractClearEmail"
-'
-' SwiftExtractClearEmail Макрос
-'
-'
-    MsgBox "Run this macro on a file up to 50 pages." _
-        & vbNewLine & "Use 'SE.html' for further reordering of columns.", vbInformation
-
-    Call Replace("----- Переслано: Roman TARASIUK/LV/RBA-AVAL/UA дата: ^#^#.^#^#.^#^#^#^# ^#^#:^#^# -----", "")
-    Call Replace("От: from@aval.ua", "")
-    Call Replace("Кому: to@aval.ua, ", "")
-    Call Replace("Кому: to@aval.ua", "")
-    Call Replace("Дата: ^#^#.^#^#.^#^#^#^# ^#^#:^#^#", "")
-    Call Replace("Тема: Statement SWIFT format MT ^#^#^#", "")
-
-    '//
-
-    Dim length, tmp As Integer
-
-    length = Word.ActiveDocument.Characters.Count
-    Do
-        tmp = length
-        Call Replace("^p^p", "^p")
-        length = Word.ActiveDocument.Characters.Count
-    Loop While length <> tmp
-
-    '//
-
-    Call Replace("}^p", "}===^p")
-    Call Replace("^p", "^t")
-    Call Replace("===", "^p")
-    Call Replace("^p^t", "^p")
-End Sub
-
 
 '
 ' Clear clipboard:
 '
-Option Explicit
-Private Declare Function OpenClipboard Lib "user32" (ByVal hwnd As Long) As Long
-Private Declare Function EmptyClipboard Lib "user32" () As Long
-Private Declare Function CloseClipboard Lib "user32" () As Long
-
-Private Function FuncClearClipboard()
-    OpenClipboard (0&)
-    EmptyClipboard
-    CloseClipboard
-End Function
-
-Sub ClearClipboard() ' Call this Sub, it uses previous arrangements
-    Call FuncClearClipboard
-End Sub
+'Private Declare Function OpenClipboard Lib "user32" (ByVal hwnd As Long) As Long
+'Private Declare Function EmptyClipboard Lib "user32" () As Long
+'Private Declare Function CloseClipboard Lib "user32" () As Long
+'
+'Private Function FuncClearClipboard()
+'    OpenClipboard (0&)
+'    EmptyClipboard
+'    CloseClipboard
+'End Function
+'
+'Sub ClearClipboard() ' Call this Sub, it uses previous arrangements
+'    Call FuncClearClipboard
+'End Sub
 
 
 '
@@ -600,52 +526,13 @@ Sub EmbededObjectsSelectAll()
 End Sub
 
 
-'
-' Selection without trailing spaces
-'
-1. Add Class Module (named e.g. SelectionHandler):
-Option Explicit
-
-' https://msdn.microsoft.com/en-us/vba/word-vba/articles/application-windowselectionchange-event-word
-' https://msdn.microsoft.com/VBA/Word-VBA/articles/using-events-with-the-application-object-word
-Public WithEvents appWord As Word.Application
-
-' http://excelrevisited.blogspot.com/2012/06/endswith.html
-Public Function EndsWith(str As String, ending As String) As Boolean
-     Dim endingLen As Integer
-     Dim ss As String
-     endingLen = Len(ending)
-     EndsWith = (Right(UCase(str), endingLen) = UCase(ending))
-End Function
-
-Private Sub appWord_WindowSelectionChange(ByVal Sel As Selection)
- Dim diff As Integer
- ' Workaround – it seems that Trim() does not trim a paragraph mark.
- If EndsWith(Sel.Text, Chr(13)) Then
-    Sel.End = Sel.End - 1
- End If
-
- If EndsWith(Sel.Text, " ") And (Len(Sel.Text) > 1) Then
-    diff = Len(Sel.Text) - Len(Trim(Sel.Text))
-    If diff <> Len(Sel.Text) Then
-        Sel.End = Sel.End - diff
-    End If
- End If
-End Sub
-2. Add Normal Module:
-Option Explicit
-
-Dim X As New SelectionHandler
-
-Sub AAHandleSelection()
-    Set X.appWord = Word.Application
-End Sub
-
-
-
 Sub AppendWorkFile(name)
 ' Used by AddAllWorkFiles().
 '
+    Selection.TypeText ">>>>"
+    Selection.TypeParagraph
+    Selection.TypeText name
+    Selection.TypeParagraph
     Selection.InsertFile FileName:=name, Link:=False
     Selection.TypeParagraph
     Selection.TypeParagraph
@@ -654,18 +541,18 @@ End Sub
 
 Sub AddAllWorkFiles()
 ' Run the Sub in new Word document.
-    AppendWorkFile ("path\manual.docx")
-    ' -//-
+    AppendWorkFile ("C:\Users\Path\file.name")
+    AppendWorkFile ("C:\Users\Path\file2.name")
     
-    MsgBox "Done!"
+    MsgBox "Done!", vbInformation
 End Sub
 
 
 Sub TestForUnsavedChanges()
     If ActiveDocument.Saved = False Then
-        MsgBox "This document contains unsaved changes."
+        MsgBox "This document contains unsaved changes.", vbInformation
     Else
-        MsgBox "The document is saved."
+        MsgBox "The document is saved.", vbInformation
     End If
 End Sub
 
@@ -674,7 +561,10 @@ Sub SaveWithCheck()
     If ActiveDocument.Saved = False Then
         ActiveDocument.Save
     End If
+    
+    MsgBox "The file successfully saved.", vbInformation
 End Sub
+
 
 Sub SaveAllWithCheck()
 ' https://www.extendoffice.com/documents/excel/2971-excel-save-all-open-files.html
@@ -686,36 +576,41 @@ Sub SaveAllWithCheck()
             xWb.Save
         End If
     Next
+    
+    MsgBox "Files successfully saved.", vbInformation
 End Sub
+
 
 Sub FindByShadingColor()
     ' wdColorAutomatic
     ' 49407 – Gold; 5287936 – Green;
     ' -587137089 – Dark (Code)
-    SelectNext (-587137089)
+    SelectNext (49407)
 End Sub
 
+
 Sub FindByShadingColorExclude()
-    Dim SelStart As Double
-    Dim SelEnd As Double
+    Dim selStart As Double
+    Dim selEnd As Double
     Dim NewSelection As SelectionObject
     Dim ExcludeColor As Double
     
     ExcludeColor = wdColorAutomatic
     
-    SelStart = Selection.Start
-    SelEnd = Selection.End
+    selStart = Selection.Start
+    selEnd = Selection.End
     Set NewSelection = SelectNext2(ExcludeColor)
     
-    Do While NewSelection.SelStart = SelEnd
-        SelStart = NewSelection.SelStart
-        SelEnd = NewSelection.SelEnd
+    Do While NewSelection.selStart = selEnd
+        selStart = NewSelection.selStart
+        selEnd = NewSelection.selEnd
         Set NewSelection = SelectNext2(ExcludeColor)
     Loop
     
-    Selection.Start = SelEnd
-    Selection.End = NewSelection.SelStart
+    Selection.Start = selEnd
+    Selection.End = NewSelection.selStart
 End Sub
+
 
 Function SelectNext(color As Double) As SelectionObject
     Dim SelectionStart As Double
@@ -733,23 +628,23 @@ Function SelectNext(color As Double) As SelectionObject
     
     Set SelectionParagraph = SelectNextParagraph(color)
     
-    If SelectionFont.SelStart < SelectionParagraph.SelStart _
-            And SelectionFont.SelEnd < SelectionParagraph.SelEnd _
+    If SelectionFont.selStart < SelectionParagraph.selStart _
+            And SelectionFont.selEnd < SelectionParagraph.selEnd _
         Then
-        If (SelectionFont.SelStart > SelectionStart _
-                And SelectionParagraph.SelStart > SelectionStart) _
-            Or (SelectionFont.SelStart < SelectionStart _
-                And SelectionParagraph.SelStart < SelectionStart) _
+        If (SelectionFont.selStart > SelectionStart _
+                And SelectionParagraph.selStart > SelectionStart) _
+            Or (SelectionFont.selStart < SelectionStart _
+                And SelectionParagraph.selStart < SelectionStart) _
             Then
             Set SelectNext = SelectionFont
         Else
             Set SelectNext = SelectionParagraph
         End If
     Else
-        If (SelectionFont.SelStart > SelectionStart _
-                And SelectionParagraph.SelStart > SelectionStart) _
-            Or (SelectionFont.SelStart < SelectionStart _
-                And SelectionParagraph.SelStart < SelectionStart) _
+        If (SelectionFont.selStart > SelectionStart _
+                And SelectionParagraph.selStart > SelectionStart) _
+            Or (SelectionFont.selStart < SelectionStart _
+                And SelectionParagraph.selStart < SelectionStart) _
             Then
             Set SelectNext = SelectionParagraph
         Else
@@ -757,9 +652,10 @@ Function SelectNext(color As Double) As SelectionObject
         End If
     End If
     
-        Selection.Start = SelectNext.SelStart
-        Selection.End = SelectNext.SelEnd
+        Selection.Start = SelectNext.selStart
+        Selection.End = SelectNext.selEnd
 End Function
+
 
 Function SelectNextFont(color As Double) As SelectionObject
     Dim result As SelectionObject
@@ -783,11 +679,12 @@ Function SelectNextFont(color As Double) As SelectionObject
     End With
     Selection.Find.Execute
     
-    result.SelStart = Selection.Start
-    result.SelEnd = Selection.End
+    result.selStart = Selection.Start
+    result.selEnd = Selection.End
     
     Set SelectNextFont = result
 End Function
+
 
 Function SelectNextParagraph(color As Double) As SelectionObject
     Dim result As SelectionObject
@@ -811,11 +708,12 @@ Function SelectNextParagraph(color As Double) As SelectionObject
     End With
     Selection.Find.Execute
     
-    result.SelStart = Selection.Start
-    result.SelEnd = Selection.End
+    result.selStart = Selection.Start
+    result.selEnd = Selection.End
     
     Set SelectNextParagraph = result
 End Function
+
 
 Function SelectNext2(color As Double) As SelectionObject
 ' https://answers.microsoft.com/en-us/msoffice/forum/msoffice_word-mso_other-mso_2007/find-shading/4c31b820-3457-453c-9b1c-672d41d7c013?auth=1
@@ -844,11 +742,12 @@ Function SelectNext2(color As Double) As SelectionObject
     End With
     Selection.Find.Execute
     
-    result.SelStart = Selection.Start
-    result.SelEnd = Selection.End
+    result.selStart = Selection.Start
+    result.selEnd = Selection.End
     
     Set SelectNext2 = result
 End Function
+
 
 Sub ManageDocumentsHistory()
 On Error GoTo TheError
@@ -873,10 +772,11 @@ On Error GoTo TheError
     GoTo TheEnd
     
 TheError:
-    MsgBox "Input Error. Restart the macro and enter a correct number (0-50)."
+    MsgBox "Input Error. Restart the macro and enter a correct number (0-50).", vbCritical
     Exit Sub
 TheEnd:
 End Sub
+
 
 Sub ZoomTo()
 On Error GoTo TheError
@@ -901,15 +801,198 @@ On Error GoTo TheError
     GoTo TheEnd
     
 TheError:
-    MsgBox "Input Error. Restart the macro and enter a correct number (10-500)."
+    MsgBox "Input Error. Restart the macro and enter a correct number (10-500).", vbCritical
     Exit Sub
 TheEnd:
 End Sub
 
+
 Sub ShowSelectionLength()
-    MsgBox "Selection length: " + CStr(Selection.End - Selection.Start) + "."
+    MsgBox "Selection length: " + CStr(Selection.End - Selection.Start) + ".", vbInformation
 End Sub
 
+
 Sub ExplorePath()
-    Shell Environ ("windir") & "\Explorer.exe " & ActiveDocument.Path, vbMaximizedFocus
+    Shell Environ("windir") & "\Explorer.exe " & ActiveDocument.Path, vbMaximizedFocus
 End Sub
+
+
+Sub LinkToFilesReminder()
+    MsgBox "File | Info | Edit Links to Files", vbInformation
+End Sub
+
+
+Public Function CountChrInString(Expression As String, Character As String) As Long
+' https://stackoverflow.com/questions/9260982/how-to-find-number-of-occurences-of-slash-from-a-strings
+    Dim iResult As Long
+    Dim sParts() As String
+
+    sParts = Split(Expression, Character)
+
+    iResult = UBound(sParts, 1)
+
+    If (iResult = -1) Then
+    iResult = 0
+    End If
+
+    CountChrInString = iResult
+
+End Function
+
+
+Sub ReplaceLineBreaksInSelection()
+    Dim replace, replaceTo As String
+    Dim selStart, selEnd, lenReplace, lenReplaceTo, replaceCount As Long
+    
+    'replace = "Roman"
+    'replaceTo = "Romasyk"
+    replace = "^l"
+    replaceTo = "; "
+    
+    lenReplace = Len(replace) - 1
+    lenReplaceTo = Len(replaceTo)
+    
+    replaceCount = CountChrInString(Selection.Text, "^l")
+    
+    MsgBox replaceCount
+    
+    selStart = Selection.Start
+    selEnd = Selection.End
+    
+    Selection.Find.ClearFormatting
+    Selection.Find.Replacement.ClearFormatting
+    With Selection.Find
+        .Text = replace
+        .Replacement.Text = replaceTo
+        .Forward = True
+        .Wrap = wdFindStop
+        .Format = False
+        .MatchCase = False
+        .MatchWholeWord = False
+        .MatchWildcards = False
+        .MatchSoundsLike = False
+        .MatchAllWordForms = False
+    End With
+    Selection.Find.Execute replace:=wdReplaceAll
+    
+    Selection.Start = selStart
+    Selection.End = selEnd + (lenReplaceTo - lenReplace) * replaceCount
+End Sub
+
+
+Sub ReplaceParagraphMarksInSelection()
+    Selection.Find.ClearFormatting
+    Selection.Find.Replacement.ClearFormatting
+    With Selection.Find
+        .Text = "^p"
+        .Replacement.Text = "; "
+        .Forward = True
+        .Wrap = wdFindStop
+        .Format = False
+        .MatchCase = False
+        .MatchWholeWord = False
+        .MatchWildcards = False
+        .MatchSoundsLike = False
+        .MatchAllWordForms = False
+    End With
+    Selection.Find.Execute replace:=wdReplaceAll
+End Sub
+
+
+Sub TrimCellSpaces()
+' https://superuser.com/questions/1028319/remove-trailing-whitespace-at-the-end-of-table-cells
+' Fixed using combination of Left() and Trim().
+' Add a reference to Microsoft VBScript Regular Expressions 5.5.
+    Dim myRE As New regExp
+    Dim itable As Table
+    Dim C As Cell
+    Dim l, count As Integer
+    myRE.Pattern = "\s+(?!.*\w)"
+    count = 0
+    For Each itable In ActiveDocument.Tables
+        For Each C In itable.Range.Cells
+            l = Len(C.Range.Text)
+            With myRE
+                ' C.Range.Text = .Replace(C.Range.Text, "")
+                C.Range.Text = Trim(Left(C.Range.Text, l - 2))
+            End With
+            If Len(C.Range.Text) <> l Then
+                count = count + 1
+            End If
+        Next
+    Next
+    
+    MsgBox "Done " + CStr(count) + " replacements."
+End Sub
+
+>>>>
+Option Explicit
+
+Dim X As New SelectionHandler
+
+' Stop the macro manually if it is needed.
+Sub AAHandleSelection()
+    Set X.appWord = Word.Application
+End Sub
+
+>>>>
+Option Explicit
+
+Sub Macro1()
+    Dim selStart, selEnd As Long
+    selStart = Selection.Start
+    selEnd = Selection.End
+    MsgBox "Start: " + CStr(selStart) + ", End: " + CStr(selEnd)
+End Sub
+
+Sub PageDown()
+'
+' PageDown Macro
+'
+'
+    Selection.GoToNext wdGoToPage
+End Sub
+
+Sub PageUp()
+'
+' PageUp Macro
+'
+'
+    Selection.GoToPrevious wdGoToPage
+End Sub
+
+>>>> Module SelectionHandler
+Option Explicit
+
+' https://msdn.microsoft.com/en-us/vba/word-vba/articles/application-windowselectionchange-event-word
+' https://msdn.microsoft.com/VBA/Word-VBA/articles/using-events-with-the-application-object-word
+Public WithEvents appWord As Word.Application
+
+' http://excelrevisited.blogspot.com/2012/06/endswith.html
+Public Function EndsWith(str As String, ending As String) As Boolean
+     Dim endingLen As Integer
+     Dim ss As String
+     endingLen = Len(ending)
+     EndsWith = (Right(UCase(str), endingLen) = UCase(ending))
+End Function
+
+Private Sub appWord_WindowSelectionChange(ByVal Sel As Selection)
+ Dim diff As Integer
+ ' Workaround – it seems that Trim() does not trim a paragraph mark.
+ If EndsWith(Sel.Text, Chr(13)) Then
+    Sel.End = Sel.End - 1
+ End If
+
+ If EndsWith(Sel.Text, " ") And (Len(Sel.Text) > 1) Then
+    diff = Len(Sel.Text) - Len(Trim(Sel.Text))
+    If diff <> Len(Sel.Text) Then
+        Sel.End = Sel.End - diff
+    End If
+ End If
+End Sub
+
+>>>> Module SelectionObject
+Option Explicit
+
+Public selStart As Double
+Public selEnd As Double

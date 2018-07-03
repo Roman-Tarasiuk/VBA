@@ -1,54 +1,8 @@
-' In ThisWorkbook
-Private Sub Workbook_NewSheet(ByVal Sh As Object)
-    Application.Run "Personal.xlsb!AADefaultStyle"
-End Sub
-
-' In ThisWorkbook
-Sub Auto_Open()
-    Application.Run "Personal.xlsb!AADefaultStyle"
-End Sub
-
-Meta Macro:
-' 'You will need to include a reference to Microsoft Visual Basic for Applications Extensibility and enable access to the VBA project module in the trust center settings.'
-' https://stackoverflow.com/questions/41226485/dynamically-create-macros-specifically-udfs-from-vba-code
-Sub CreateMacro()
-    Dim vbComp As VBComponent
-    Dim functionText As String
-
-    Set vbComp = ThisWorkbook.VBProject.VBComponents.Add(vbext_ct_StdModule)
-
-    functionText = "Function MyTest()" & vbCrLf
-    functionText = functionText + "MsgBox " & Chr(34) & "Hello World" & Chr(34) & vbCrLf
-    functionText = functionText + "End Function"
-
-    vbComp.CodeModule.AddFromString functionText
-End Sub
+>>>>
+'Private Sub Workbook_Open()
+'End Sub
 
 
-'
-' VBScript MessageBox
-
-x=msgbox("Your Text Here" ,0, "Your Title Here")
-
-' 0 =OK button only
-' 1 =OK and Cancel buttons
-' 2 =Abort, Retry, and Ignore buttons
-' 3 =Yes, No, and Cancel buttons
-' 4 =Yes and No buttons
-' 5 =Retry and Cancel buttons
-' 16 =Critical Message icon
-' 32 =Warning Query icon
-' 48 = Warning Message icon
-' 64 =Information Message icon
-' 0 = First button is default
-' 256 =Second button is default
-' 512 =Third button is default
-' 768 =Fourth button is default
-' 0 =Application modal (the current application will not work until the user responds to the message box)
-' 4096 =System modal (all applications wont work until the user responds to the message box)
-
-
-' Attribute VB_Name = "Module11"
 '
 ' ClearClipboard() with helper functions
 '
@@ -72,8 +26,12 @@ End Sub
 '
 Sub TrueFalseConditionalFormatting()
     Selection.FormatConditions.Add Type:=xlCellValue, Operator:=xlEqual, _
-        Formula1:="=»—“»Õ¿"
+        Formula1:="=TRUE"
     Selection.FormatConditions(Selection.FormatConditions.Count).SetFirstPriority
+    With Selection.FormatConditions(1).Font
+        .Color = -11480942
+        .TintAndShade = 0
+    End With
     With Selection.FormatConditions(1).Interior
         .PatternColorIndex = xlAutomatic
         .Color = 5287936
@@ -81,8 +39,12 @@ Sub TrueFalseConditionalFormatting()
     End With
     Selection.FormatConditions(1).StopIfTrue = False
     Selection.FormatConditions.Add Type:=xlCellValue, Operator:=xlEqual, _
-        Formula1:="=ÀŒ∆‹"
+        Formula1:="=FALSE"
     Selection.FormatConditions(Selection.FormatConditions.Count).SetFirstPriority
+    With Selection.FormatConditions(1).Font
+        .Color = -8081164
+        .TintAndShade = 0
+    End With
     With Selection.FormatConditions(1).Interior
         .PatternColorIndex = xlAutomatic
         .Color = 255
@@ -110,16 +72,6 @@ End Function
 '
 '
 Sub PasteFormat()
-' Attribute PasteFormat.VB_ProcData.VB_Invoke_Func = "V\n14"
-    Selection.PasteSpecial Paste:=xlPasteFormats, Operation:=xlNone, _
-        SkipBlanks:=False, Transpose:=False
-End Sub
-
-
-'
-'
-Sub PasteFormat2()
-'
     Selection.PasteSpecial Paste:=xlPasteFormats, Operation:=xlNone, _
         SkipBlanks:=False, Transpose:=False
 End Sub
@@ -129,17 +81,17 @@ End Sub
 ' Unselect Cell/Area (http://www.cpearson.com/excel/UnSelect.aspx)
 '
 Sub UnSelectActiveCell()
-    Dim R As Range
+    Dim r As Range
     Dim RR As Range
-    For Each R In Selection.Cells
-        If StrComp(R.Address, ActiveCell.Address, vbBinaryCompare) <> 0 Then
+    For Each r In Selection.Cells
+        If StrComp(r.Address, ActiveCell.Address, vbBinaryCompare) <> 0 Then
             If RR Is Nothing Then
-                Set RR = R
+                Set RR = r
             Else
-                Set RR = Application.Union(RR, R)
+                Set RR = Application.Union(RR, r)
             End If
         End If
-    Next R
+    Next r
     If Not RR Is Nothing Then
         RR.Select
     End If
@@ -174,6 +126,10 @@ Sub CellNumberFormat()
     Selection.NumberFormat = "0"
 End Sub
 
+Sub CellNumber2DecPlacFormat()
+    Selection.NumberFormat = "0.00"
+End Sub
+
 Sub CellDateFormat()
     Selection.NumberFormat = "dd/mm/yyyy"
 End Sub
@@ -198,7 +154,7 @@ Sub Color1()
     With Selection.Interior
         .Pattern = xlSolid
         .PatternColorIndex = xlAutomatic
-        .Color = 14277081
+        .Color = 5296274
         .TintAndShade = 0
         .PatternTintAndShade = 0
     End With
@@ -208,7 +164,7 @@ Sub Color2()
     With Selection.Interior
         .Pattern = xlSolid
         .PatternColorIndex = xlAutomatic
-        .Color = 10921638
+        .Color = 14277081
         .TintAndShade = 0
         .PatternTintAndShade = 0
     End With
@@ -242,21 +198,6 @@ Sub CopyHyperlinkToClipboard()
     
     Obj.SetText a
     Obj.PutInClipboard
-End Sub
-
-
-Option Explicit
-
-Sub CopyCellValueToClipboard()
-'
-' CopyCellValueToClipboard Macro
-'
-' Keyboard Shortcut: Ctrl+q
-'
-    Dim MyData As Object
-    Set MyData = New DataObject
-    MyData.SetText Selection.Text
-    MyData.PutInClipboard
 End Sub
 
 
@@ -313,28 +254,11 @@ Sub SaveAll()
     Next
 End Sub
 
+
 Sub SecurityDDE()
     Application.IgnoreRemoteRequests = False
 End Sub
 
-
-Sub FillUp()
-'
-' FillUp Macro
-'
-' Keyboard Shortcut: Ctrl+Shift+D
-'
-    Selection.FillUp
-End Sub
-
-Sub FillLeft()
-'
-' FillLeft Macro
-'
-' Keyboard Shortcut: Ctrl+Shift+R
-'
-    Selection.FillLeft
-End Sub
 
 Sub AADefaultStyle()
     Cells.Select
@@ -369,22 +293,29 @@ Sub AADefaultStyle()
     Range("A1").Select
 End Sub
 
+
 Sub Swap2Rows()
-    Dim R As Integer
+    Dim r As Integer
     Dim S1, S2 As String
     
-    R = Selection.Row
+    r = Selection.Row
     
     Selection.EntireRow.Insert
-    S1 = CStr(R) + ":" + CStr(R)
-    S2 = CStr(R + 2) + ":" + CStr(R + 2)
+    S1 = CStr(r) + ":" + CStr(r)
+    S2 = CStr(r + 2) + ":" + CStr(r + 2)
     Rows(S2).Select
     Selection.Cut Destination:=Rows(S1)
     Range(S2).Select
     Selection.EntireRow.Delete
 End Sub
 
+
 Sub ZoomTo()
+'
+' ZoomTo Macro
+'
+
+'
     On Error GoTo TheError
     Dim PercentageStr As String
     Dim PercentageNum As Integer
@@ -412,6 +343,7 @@ TheError:
 TheEnd:
 End Sub
 
+
 Sub FormulaStyle()
     If Application.ReferenceStyle = xlA1 Then
         Application.ReferenceStyle = xlR1C1
@@ -420,75 +352,156 @@ Sub FormulaStyle()
     End If
 End Sub
 
-' The macro listens a cell change and applies the filter based on the changed value.
-' Put the macro into a book's Microsoft Excel Objects sheet.
-Private Sub Worksheet_Change(ByVal Target As Range)
-    Dim KeyCells As Range
-    Dim val As String
 
-    Set KeyCells = Range("V6:V6")
+Sub NumberSeparator()
+    Application.UseSystemSeparators = Not Application.UseSystemSeparators
+End Sub
+
+
+Sub ExplorePath()
+    Shell Environ("windir") & "\Explorer.exe " & ActiveWorkbook.Path, vbMaximizedFocus
+End Sub
+
+
+Sub DeleteTextBoxes()
+    ActiveSheet.Shapes.SelectAll
+    Selection.Delete
+End Sub
+
+
+Sub SimpleSeries()
+    Selection.DataSeries Rowcol:=xlColumns, Type:=xlLinear, Date:=xlDay, _
+        Step:=1, Trend:=False
+End Sub
+
+
+Sub SimpleSeriesRight()
+    Selection.DataSeries Rowcol:=xlRows, Type:=xlLinear, Date:=xlDay, _
+        Step:=1, Trend:=False
+End Sub
+
+
+Sub BuildField1()
+    Dim S, F As String
+    Dim StartPos, EndPos As Integer
     
-    If Not Application.Intersect(KeyCells, Range(Target.Address)) _
-           Is Nothing Then
-        ' empty cell ñ for all values
-        ' <> for non-empty values
-        ' abc*, *xyz ñ starts and ends with
-        val = Target.Value
-        If val = "" Then
-            ActiveSheet.Range("$G$6:$V$3208").AutoFilter Field:=16
-        Else
-            ActiveSheet.Range("$G$6:$V$3208").AutoFilter Field:=16, Criteria1:=val
-        End If
-    End If
-End Sub
-
-<Version with multiple filtering fields>
-Const filterRange = "$B$3:$IX$3660"
-Const filterField1 = "$H$2"
-Const filterField2 = "$I$2"
-
-Private Sub btnClearFilter_Click()
-    On Error GoTo Exception
-    ' ActiveSheet.range("$C$3:$IX$3660").AutoFilter Field:=6
-    btnClearFilter.BackColor = &HC0C0C0
-    range(filterField1).Value = ""
-    range(filterField2).Value = ""
-    range(filterField1).Select
-    ActiveSheet.ShowAllData
-Exception:
-End Sub
-
-Private Sub Worksheet_Change(ByVal Target As range)
-    Dim KeyCells As range
-    Dim val As String
-
-    Set KeyCells = range("H2:I2")
+    S = Cells(7, 11).FormulaR1C1
+    StartPos = InStr(4, S, "[")
+    EndPos = InStr(7, S, "]")
     
-    If Not Application.Intersect(KeyCells, range(Target.Address)) _
-           Is Nothing Then
-        ' empty cell ñ for all values
-        ' <> for non-empty values
-        ' abc*, *xyz ñ starts and ends with
-        val = Target.Value
+    F = "=Exported!R[" _
+        + CStr(CInt(Mid(S, StartPos + 1, EndPos - StartPos - 1)) - 1) _
+        + "]C"
+    
+    Cells(8, 11).FormulaR1C1 = F
+End Sub
+
+Sub BuildField2()
+    Dim F As String
+    
+    F = "=R[-5]C=Exported!R[" _
+        + CStr(CInt(Cells(10, 2).Value) - 7) _
+        + "]C"
+    
+    Cells(7, 1).FormulaR1C1 = F
+End Sub
+
+Sub GoHome()
+    SendKeys ("^{HOME}")
+End Sub
+
+Sub BuildField1ver2()
+    Dim S, ResultFormula, r As String
+    Dim i, length As Integer
+    Dim cols As Integer
+    
+    cols = 18
+    
+    r = Cells(9, 2).Value
+    
+    For i = 1 To cols
+        S = Cells(4, i).FormulaR1C1
         
-        If val <> "" Then
-            btnClearFilter.BackColor = &H80FF&
-        End If
+        ' 1. Compare values.
+        '
+        'ResultFormula = Replace(S, "[-3]", "[-4]", 1, 1)
+        'ResultFormula = Replace(ResultFormula, "[-3]", R, 1, 1)
+        'Cells(6, i).FormulaR1C1 = ResultFormula
         
-        If Target.Address = filterField1 Then
-            ApplyFilter ActiveSheet.range(filterRange), 6, val
-        ElseIf Target.Address = filterField2 Then
-            ApplyFilter ActiveSheet.range(filterRange), 7, val
+        ' 2. Copy values.
+        '
+        length = Len(S)
+        If length > 8 Then
+            ResultFormula = Mid(S, 8, length - 7)
+            ResultFormula = Replace(ResultFormula, "[-3]", r, 1, 1)
+            Cells(7, i).FormulaR1C1 = ResultFormula
         End If
-    End If
+    Next i
+End Sub
+
+Function AllAreTrue(rng As Range) As Boolean
+    Dim cell As Range
+    
+    AllAreTrue = True
+    For Each cell In rng
+        If cell.Value = False Then
+            AllAreTrue = False
+            Exit For
+        End If
+    Next cell
+End Function
+
+>>>>
+Option Explicit
+
+Sub CopyCellValueToClipboard()
+'
+' CopyCellValueToClipboard Macro
+'
+' Keyboard Shortcut: Ctrl+q
+'
+    Dim MyData As Object
+    Set MyData = New DataObject
+    MyData.SetText Selection.Text
+    MyData.PutInClipboard
 End Sub
 
 
-Sub ApplyFilter(r As range, col As Integer, val As String)
-    If val = "" Then
-        r.AutoFilter Field:=col
-    Else
-        r.AutoFilter Field:=col, Criteria1:=val
-    End If
+Sub CopyCellValueToClipboard2()
+    Call CopyCellValueToClipboard
 End Sub
-</Version with multiple filtering fields>
+
+>>>>
+Option Explicit
+
+Sub FillUp()
+'
+' FillUp Macro
+'
+' Keyboard Shortcut: Ctrl+Shift+D
+'
+    Selection.FillUp
+End Sub
+
+Sub FillLeft()
+'
+' FillLeft Macro
+'
+' Keyboard Shortcut: Ctrl+Shift+R
+'
+    Selection.FillLeft
+End Sub
+
+>>>>
+Option Explicit
+
+Sub PasteValue()
+'
+' PasteValue Macro
+'
+' Keyboard Shortcut: Ctrl+e
+'
+    Selection.NumberFormat = "#,##0.00_?"
+    ActiveSheet.PasteSpecial Format:="Unicode Text", Link:=False, _
+        DisplayAsIcon:=False
+End Sub
