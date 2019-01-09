@@ -505,3 +505,24 @@ Sub PasteValue()
     ActiveSheet.PasteSpecial Format:="Unicode Text", Link:=False, _
         DisplayAsIcon:=False
 End Sub
+
+
+
+
+' Filtering based on a cell's value.
+' Uses a Table instead of a range.
+Private Sub Worksheet_Change(ByVal Target As Range)
+    Dim KeyCells As Range
+
+    Set KeyCells = Range("D2:D2")
+    
+    If Not Application.Intersect(KeyCells, Range(Target.Address)) Is Nothing Then
+        Dim strFilter As String
+        strFilter = "*" & [D2] & "*"
+        Debug.Print strFilter
+        ActiveSheet.ListObjects("TableBins").Range.AutoFilter _
+            Field:=1, _
+            Criteria1:=strFilter, _
+            Operator:=xlFilterValues
+    End If
+End Sub
