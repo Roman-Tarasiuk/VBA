@@ -926,11 +926,13 @@ Sub TrimCellSpaces()
 End Sub
 
 >>>>
+' Put in a module.
+' It uses the SelectionHandler class module defined below.
+' Stop the macro manually if it is needed.
 Option Explicit
 
 Dim X As New SelectionHandler
 
-' Stop the macro manually if it is needed.
 Sub AAHandleSelection()
     Set X.appWord = Word.Application
 End Sub
@@ -961,7 +963,7 @@ Sub PageUp()
     Selection.GoToPrevious wdGoToPage
 End Sub
 
->>>> Module SelectionHandler
+>>>> Class Module SelectionHandler
 Option Explicit
 
 ' https://msdn.microsoft.com/en-us/vba/word-vba/articles/application-windowselectionchange-event-word

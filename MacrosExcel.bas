@@ -526,3 +526,36 @@ Private Sub Worksheet_Change(ByVal Target As Range)
             Operator:=xlFilterValues
     End If
 End Sub
+
+
+Sub ListSheets()
+    Dim ws As Worksheet
+    Dim rStart, r, c As Integer
+
+    rStart = ActiveCell.Row
+    r = ActiveCell.Row
+    c = ActiveCell.Column
+
+    For Each ws In Worksheets
+        If Not ws.Name = ActiveSheet.Name Then
+            ActiveSheet.Cells(r, c) = ws.Name
+            ' Adding hyperlink to each sheet.
+            'ActiveSheet.Cells(r, c).Select
+            'ActiveSheet.Hyperlinks.Add Anchor:=Selection, Address:="", SubAddress:= _
+            '    ws.Name & "!R1C1", TextToDisplay:=ws.Name
+            r = r + 1
+        End If
+    Next ws
+    
+    ' Selecting last cell or created list.
+    'Cells(r - 1, c).Select
+    'Range(Cells(rStart, c), Cells(r - 1, c)).Select
+End Sub
+
+
+' Can be used with the previous macro.
+Private Sub Worksheet_SelectionChange(ByVal Target As Range)
+    If Not Intersect(Range("C3:C12"), Target) Is Nothing Then
+        Sheets(ActiveCell.Text).Select
+    End If
+End Sub
