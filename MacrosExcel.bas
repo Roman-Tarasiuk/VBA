@@ -468,6 +468,7 @@ End Sub
 
 
 Sub CopyCellValueToClipboard2()
+    ' Ctrl + ?
     Call CopyCellValueToClipboard
 End Sub
 
@@ -559,3 +560,29 @@ Private Sub Worksheet_SelectionChange(ByVal Target As Range)
         Sheets(ActiveCell.Text).Select
     End If
 End Sub
+
+
+Sub Combine()
+' https://www.extendoffice.com/documents/excel/1184-excel-merge-multiple-worksheets-into-one.html
+    Dim J As Integer
+    On Error Resume Next
+    Sheets(1).Select
+    Worksheets.Add
+    Sheets(1).Name = "Combined"
+    Sheets(2).Activate
+    Range("A1").EntireRow.Select
+    Selection.Copy Destination:=Sheets(1).Range("A1")
+    
+    For J = 2 To Sheets.Count
+        Sheets(J).Activate
+        Range("A1").Select
+        Selection.CurrentRegion.Select
+        Selection.Offset(1, 0).Resize(Selection.Rows.Count - 1).Select
+        Selection.Copy Destination:=Sheets(1).Range("A1048576").End(xlUp)(2) ' Use "A65536" for old xls.
+    Next
+End Sub
+
+
+Function FindR(c As String, m As String)
+    FindR = InStrRev(c, m)
+End Function

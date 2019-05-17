@@ -929,12 +929,30 @@ End Sub
 ' Put in a module.
 ' It uses the SelectionHandler class module defined below.
 ' Stop the macro manually if it is needed.
-Option Explicit
-
+' Version 1.
 Dim X As New SelectionHandler
 
 Sub AAHandleSelection()
     Set X.appWord = Word.Application
+End Sub
+
+'
+'
+' Version 2.
+'
+Dim X As New SelectionHandler
+Public SelectionHandlerIsOn As Boolean
+
+Sub AAHandleSelection()
+    Set X.appWord = Word.Application
+    
+    If Not SelectionHandlerIsOn Then
+        X.Process = True
+        SelectionHandlerIsOn = True
+    Else
+        X.Process = False
+        SelectionHandlerIsOn = False
+    End If
 End Sub
 
 >>>>
@@ -963,7 +981,8 @@ Sub PageUp()
     Selection.GoToPrevious wdGoToPage
 End Sub
 
->>>> Class Module SelectionHandler
+>>>> Class Module SelectionHandler; 
+' Version 1.
 Option Explicit
 
 ' https://msdn.microsoft.com/en-us/vba/word-vba/articles/application-windowselectionchange-event-word
@@ -980,8 +999,8 @@ End Function
 
 Private Sub appWord_WindowSelectionChange(ByVal Sel As Selection)
  Dim diff As Integer
- ' Workaround – it seems that Trim() does not trim a paragraph mark.
- If EndsWith(Sel.Text, Chr(13)) Then
+ ' Workaround – for some reasons Trim() does not trim a paragraph mark.
+ If EndsWith(Sel.Text, Chr(13)) And (Len(Sel.Text) > 1) Then
     Sel.End = Sel.End - 1
  End If
 
@@ -992,6 +1011,45 @@ Private Sub appWord_WindowSelectionChange(ByVal Sel As Selection)
     End If
  End If
 End Sub
+
+'
+'
+' Version 2, toggle processing.
+'
+Option Explicit
+
+' https://msdn.microsoft.com/en-us/vba/word-vba/articles/application-windowselectionchange-event-word
+' https://msdn.microsoft.com/VBA/Word-VBA/articles/using-events-with-the-application-object-word
+Public WithEvents appWord As Word.Application
+Public Process As Boolean
+
+
+' http://excelrevisited.blogspot.com/2012/06/endswith.html
+Public Function EndsWith(str As String, ending As String) As Boolean
+     Dim endingLen As Integer
+     Dim ss As String
+     endingLen = Len(ending)
+     EndsWith = (Right(UCase(str), endingLen) = UCase(ending))
+End Function
+
+Private Sub appWord_WindowSelectionChange(ByVal Sel As Selection)
+ If Not Process Then
+    Exit Sub
+ End If
+ Dim diff As Integer
+ ' Workaround – for some reasons Trim() does not trim a paragraph mark.
+ If EndsWith(Sel.Text, Chr(13)) And (Len(Sel.Text) > 1) Then
+    Sel.End = Sel.End - 1
+ End If
+
+ If EndsWith(Sel.Text, " ") And (Len(Sel.Text) > 1) Then
+    diff = Len(Sel.Text) - Len(Trim(Sel.Text))
+    If diff <> Len(Sel.Text) Then
+        Sel.End = Sel.End - diff
+    End If
+ End If
+End Sub
+
 
 >>>> Module SelectionObject
 Option Explicit
