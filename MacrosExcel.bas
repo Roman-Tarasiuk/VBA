@@ -468,7 +468,7 @@ End Sub
 
 
 Sub CopyCellValueToClipboard2()
-    ' Ctrl + ?
+    ' Ctrl + é
     Call CopyCellValueToClipboard
 End Sub
 
@@ -540,7 +540,7 @@ Sub ListSheets()
     For Each ws In Worksheets
         If Not ws.Name = ActiveSheet.Name Then
             ActiveSheet.Cells(r, c) = ws.Name
-            ' Adding hyperlink to each sheet.
+            ''' Adding hyperlink to each sheet.
             'ActiveSheet.Cells(r, c).Select
             'ActiveSheet.Hyperlinks.Add Anchor:=Selection, Address:="", SubAddress:= _
             '    ws.Name & "!R1C1", TextToDisplay:=ws.Name
@@ -548,7 +548,7 @@ Sub ListSheets()
         End If
     Next ws
     
-    ' Selecting last cell or created list.
+    ''' Selecting last cell or created list.
     'Cells(r - 1, c).Select
     'Range(Cells(rStart, c), Cells(r - 1, c)).Select
 End Sub
