@@ -1056,3 +1056,12 @@ Option Explicit
 
 Public selStart As Double
 Public selEnd As Double
+
+
+Sub ToggleFindForward()
+    Selection.Find.Forward = True
+End Sub
+
+Sub ToggleFindBackward()
+    Selection.Find.Forward = False
+End Sub
