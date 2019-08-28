@@ -586,3 +586,17 @@ End Sub
 Function FindR(c As String, m As String)
     FindR = InStrRev(c, m)
 End Function
+
+
+Sub NewSheet()
+'
+' NewSheet Macro
+'
+    Dim currentActive As Integer
+
+    currentActive = ActiveSheet.Index
+    
+    Sheets.Add
+        
+    Sheets(currentActive).Move After:=Sheets(currentActive + 1)
+End Sub
