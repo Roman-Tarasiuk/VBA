@@ -600,3 +600,8 @@ Sub NewSheet()
         
     Sheets(currentActive).Move After:=Sheets(currentActive + 1)
 End Sub
+
+
+Function RowHeight(r As Range)
+    RowHeight = r.Height
+End Function
