@@ -605,3 +605,18 @@ End Sub
 Function RowHeight(r As Range)
     RowHeight = r.Height
 End Function
+
+
+Function Matches(r As Range, pattern As String)
+' Add reference to the 'Microsoft VBScript Regular Expressions'
+    Dim regEx As New regexp
+    
+    With regEx
+        .Global = True
+        ' .MultiLine = True
+        .IgnoreCase = False
+        .pattern = pattern
+    End With
+    
+    Matches = regEx.Test(r.Text)
+End Function
