@@ -620,3 +620,72 @@ Function Matches(r As Range, pattern As String)
     
     Matches = regEx.Test(r.Text)
 End Function
+
+
+Sub CombineSheets()
+' https://www.extendoffice.com/documents/excel/1184-excel-merge-multiple-worksheets-into-one.html
+    Dim J As Integer
+    On Error Resume Next
+    Sheets(1).Select
+    Worksheets.Add
+    Sheets(1).Name = "Combined"
+    Sheets(2).Activate
+    Range("A1").EntireRow.Select
+    Selection.Copy Destination:=Sheets(1).Range("A1")
+    
+    For J = 2 To Sheets.Count
+        Sheets(J).Activate
+        Range("A1").Select
+        Selection.CurrentRegion.Select
+        Selection.Offset(1, 0).Resize(Selection.Rows.Count - 1).Select
+        Selection.Copy Destination:=Sheets(1).Range("A1048576").End(xlUp)(2) ' Use "A65536" for old xls.
+        ' Selection.Copy Destination:=Sheets(1).Range("A65536").End(xlUp)(2) ' Use "A65536" for old xls.
+    Next
+End Sub
+
+
+Sub MoveSheetsToOtherBook()
+    Dim s As Worksheet
+    Dim c, cDest As Integer
+    Dim dest As String
+    
+    dest = InputBox("Enter destination workbook name:")
+    cDest = Workbooks(dest).Worksheets.Count
+    
+    c = ActiveWorkbook.Worksheets.Count
+    
+    For Each s In ActiveWorkbook.Worksheets
+        s.Move After:=Workbooks(dest).Sheets(cDest)
+        cDest = cDest + 1
+    Next
+End Sub
+
+
+Function BackColor(c As Range)
+    BackColor = c.Interior.Color
+End Function
+
+Function ForeColor(c As Range)
+    ForeColor = c.Font.Color
+End Function
+
+
+Sub CopyCellAddress()
+    ' Ctrl + m
+    Dim fullAddress As String
+    Dim MyData As Object
+    
+    Set MyData = New DataObject
+    
+    fullAddress = "'[" + ActiveWorkbook.Name + "]" _
+        + ActiveSheet.Name + "'!" + ActiveCell.Address(ReferenceStyle:=xlR1C1)
+    'ActiveCell.Address(ReferenceStyle:=xlR1C1)
+    MyData.SetText fullAddress
+    MyData.PutInClipboard
+End Sub
+
+
+Sub CopyCellAddress2()
+    ' Ctrl + u
+    Call CopyCellAddress
+End Sub
