@@ -543,7 +543,7 @@ Sub AddAllWorkFiles()
 ' Run the Sub in new Word document.
     AppendWorkFile ("C:\Users\Path\file.name")
     AppendWorkFile ("C:\Users\Path\file2.name")
-    
+
     MsgBox "Done!", vbInformation
 End Sub
 
@@ -561,7 +561,7 @@ Sub SaveWithCheck()
     If ActiveDocument.Saved = False Then
         ActiveDocument.Save
     End If
-    
+
     MsgBox "The file successfully saved.", vbInformation
 End Sub
 
@@ -576,15 +576,15 @@ Sub SaveAllWithCheck()
             xWb.Save
         End If
     Next
-    
+
     MsgBox "Files successfully saved.", vbInformation
 End Sub
 
 
 Sub FindByShadingColor()
     ' wdColorAutomatic
-    ' 49407 – Gold; 5287936 – Green;
-    ' -587137089 – Dark (Code)
+    ' 49407 â€“ Gold; 5287936 â€“ Green;
+    ' -587137089 â€“ Dark (Code)
     SelectNext (49407)
 End Sub
 
@@ -594,19 +594,19 @@ Sub FindByShadingColorExclude()
     Dim selEnd As Double
     Dim NewSelection As SelectionObject
     Dim ExcludeColor As Double
-    
+
     ExcludeColor = wdColorAutomatic
-    
+
     selStart = Selection.Start
     selEnd = Selection.End
     Set NewSelection = SelectNext2(ExcludeColor)
-    
+
     Do While NewSelection.selStart = selEnd
         selStart = NewSelection.selStart
         selEnd = NewSelection.selEnd
         Set NewSelection = SelectNext2(ExcludeColor)
     Loop
-    
+
     Selection.Start = selEnd
     Selection.End = NewSelection.selStart
 End Sub
@@ -617,17 +617,17 @@ Function SelectNext(color As Double) As SelectionObject
     Dim SelectionEnd As Double
     Dim SelectionFont As SelectionObject
     Dim SelectionParagraph As SelectionObject
-    
+
     SelectionStart = Selection.Start
     SelectionEnd = Selection.End
-    
+
     Set SelectionFont = SelectNextFont(color)
-    
+
     Selection.Start = SelectionStart
     Selection.End = SelectionEnd
-    
+
     Set SelectionParagraph = SelectNextParagraph(color)
-    
+
     If SelectionFont.selStart < SelectionParagraph.selStart _
             And SelectionFont.selEnd < SelectionParagraph.selEnd _
         Then
@@ -651,7 +651,7 @@ Function SelectNext(color As Double) As SelectionObject
             Set SelectNext = SelectionFont
         End If
     End If
-    
+
         Selection.Start = SelectNext.selStart
         Selection.End = SelectNext.selEnd
 End Function
@@ -660,11 +660,11 @@ End Function
 Function SelectNextFont(color As Double) As SelectionObject
     Dim result As SelectionObject
     Set result = New SelectionObject
-    
+
     Selection.Find.ClearFormatting
-    
+
     Selection.Find.Font.Shading.BackgroundPatternColor = color
-    
+
     With Selection.Find
         .Text = ""
         .Replacement.Text = ""
@@ -678,10 +678,10 @@ Function SelectNextFont(color As Double) As SelectionObject
         .MatchAllWordForms = False
     End With
     Selection.Find.Execute
-    
+
     result.selStart = Selection.Start
     result.selEnd = Selection.End
-    
+
     Set SelectNextFont = result
 End Function
 
@@ -689,11 +689,11 @@ End Function
 Function SelectNextParagraph(color As Double) As SelectionObject
     Dim result As SelectionObject
     Set result = New SelectionObject
-    
+
     Selection.Find.ClearFormatting
-    
+
     Selection.Find.ParagraphFormat.Shading.BackgroundPatternColor = color
-    
+
     With Selection.Find
         .Text = ""
         .Replacement.Text = ""
@@ -707,26 +707,26 @@ Function SelectNextParagraph(color As Double) As SelectionObject
         .MatchAllWordForms = False
     End With
     Selection.Find.Execute
-    
+
     result.selStart = Selection.Start
     result.selEnd = Selection.End
-    
+
     Set SelectNextParagraph = result
 End Function
 
 
 Function SelectNext2(color As Double) As SelectionObject
 ' https://answers.microsoft.com/en-us/msoffice/forum/msoffice_word-mso_other-mso_2007/find-shading/4c31b820-3457-453c-9b1c-672d41d7c013?auth=1
-' Does not work for styled paragraphs – maybe it's need to configure some Selection.Find's options.
+' Does not work for styled paragraphs â€“ maybe it's need to configure some Selection.Find's options.
     Dim result As SelectionObject
     Set result = New SelectionObject
-    
+
     Selection.Find.ClearFormatting
     '
     ' ** Toggle the next two options to find in text or entire paragraph
     'Selection.Find.Font.Shading.BackgroundPatternColor = color
     Selection.Find.ParagraphFormat.Shading.BackgroundPatternColor = color
-    
+
     With Selection.Find
         .Text = ""
         .Replacement.Text = ""
@@ -741,10 +741,10 @@ Function SelectNext2(color As Double) As SelectionObject
         '.Style = "Code"
     End With
     Selection.Find.Execute
-    
+
     result.selStart = Selection.Start
     result.selEnd = Selection.End
-    
+
     Set SelectNext2 = result
 End Function
 
@@ -753,24 +753,24 @@ Sub ManageDocumentsHistory()
 On Error GoTo TheError
     Dim RecentFilesStr As String
     Dim RecentFilesNum As Integer
-    
+
     RecentFilesStr = InputBox("Enter recent files number (0-50):", , RecentFiles.Maximum)
-    
+
     If RecentFilesStr = vbNullString Then
         Exit Sub
     End If
-    
+
     RecentFilesNum = RecentFilesStr
-    
+
     If RecentFilesNum < 0 Then
         RecentFilesNum = 0
     ElseIf RecentFilesNum > 50 Then
         RecentFilesNum = 50
     End If
-    
+
     RecentFiles.Maximum = RecentFilesNum
     GoTo TheEnd
-    
+
 TheError:
     MsgBox "Input Error. Restart the macro and enter a correct number (0-50).", vbCritical
     Exit Sub
@@ -782,24 +782,24 @@ Sub ZoomTo()
 On Error GoTo TheError
     Dim PercentageStr As String
     Dim PercentageNum As Integer
-    
+
     PercentageStr = InputBox("Enter zoom percentage:", , ActiveWindow.ActivePane.View.Zoom.Percentage)
-    
+
     If PercentageStr = vbNullString Then
         Exit Sub
     End If
-    
+
     PercentageNum = PercentageStr
-    
+
     If PercentageNum < 10 Then
         PercentageNum = 10
     ElseIf PercentageNum > 500 Then
         PercentageNum = 500
     End If
-    
+
     ActiveWindow.ActivePane.View.Zoom.Percentage = PercentageNum
     GoTo TheEnd
-    
+
 TheError:
     MsgBox "Input Error. Restart the macro and enter a correct number (10-500).", vbCritical
     Exit Sub
@@ -843,22 +843,22 @@ End Function
 Sub ReplaceLineBreaksInSelection()
     Dim replace, replaceTo As String
     Dim selStart, selEnd, lenReplace, lenReplaceTo, replaceCount As Long
-    
+
     'replace = "Roman"
     'replaceTo = "Romasyk"
     replace = "^l"
     replaceTo = "; "
-    
+
     lenReplace = Len(replace) - 1
     lenReplaceTo = Len(replaceTo)
-    
+
     replaceCount = CountChrInString(Selection.Text, "^l")
-    
+
     MsgBox replaceCount
-    
+
     selStart = Selection.Start
     selEnd = Selection.End
-    
+
     Selection.Find.ClearFormatting
     Selection.Find.Replacement.ClearFormatting
     With Selection.Find
@@ -874,7 +874,7 @@ Sub ReplaceLineBreaksInSelection()
         .MatchAllWordForms = False
     End With
     Selection.Find.Execute replace:=wdReplaceAll
-    
+
     Selection.Start = selStart
     Selection.End = selEnd + (lenReplaceTo - lenReplace) * replaceCount
 End Sub
@@ -921,7 +921,7 @@ Sub TrimCellSpaces()
             End If
         Next
     Next
-    
+
     MsgBox "Done " + CStr(count) + " replacements."
 End Sub
 
@@ -945,7 +945,7 @@ Public SelectionHandlerIsOn As Boolean
 
 Sub AAHandleSelection()
     Set X.appWord = Word.Application
-    
+
     If Not SelectionHandlerIsOn Then
         X.Process = True
         SelectionHandlerIsOn = True
@@ -981,7 +981,7 @@ Sub PageUp()
     Selection.GoToPrevious wdGoToPage
 End Sub
 
->>>> Class Module SelectionHandler; 
+>>>> Class Module SelectionHandler;
 ' Version 1.
 Option Explicit
 
@@ -999,7 +999,7 @@ End Function
 
 Private Sub appWord_WindowSelectionChange(ByVal Sel As Selection)
  Dim diff As Integer
- ' Workaround – for some reasons Trim() does not trim a paragraph mark.
+ ' Workaround â€“ for some reasons Trim() does not trim a paragraph mark.
  If EndsWith(Sel.Text, Chr(13)) And (Len(Sel.Text) > 1) Then
     Sel.End = Sel.End - 1
  End If
@@ -1037,7 +1037,7 @@ Private Sub appWord_WindowSelectionChange(ByVal Sel As Selection)
     Exit Sub
  End If
  Dim diff As Integer
- ' Workaround – for some reasons Trim() does not trim a paragraph mark.
+ ' Workaround â€“ for some reasons Trim() does not trim a paragraph mark.
  If EndsWith(Sel.Text, Chr(13)) And (Len(Sel.Text) > 1) Then
     Sel.End = Sel.End - 1
  End If

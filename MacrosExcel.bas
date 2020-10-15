@@ -16,7 +16,7 @@ Private Function FuncClearClipboard()
     EmptyClipboard
     CloseClipboard
 End Function
- 
+
 Sub ClearClipboard()
     Call FuncClearClipboard
 End Sub
@@ -51,7 +51,7 @@ Sub TrueFalseConditionalFormatting()
         .TintAndShade = 0
     End With
     Selection.FormatConditions(1).StopIfTrue = False
-    Selection.FormatConditions.Add Type:=xlExpression, Formula1:="=≈Œÿ»¡ ¿(RC)"
+    Selection.FormatConditions.Add Type:=xlExpression, Formula1:="=–ï–û–®–ò–ë–ö–ê(RC)"
     Selection.FormatConditions(Selection.FormatConditions.Count).SetFirstPriority
     With Selection.FormatConditions(1).Interior
         .PatternColorIndex = xlAutomatic
@@ -100,7 +100,7 @@ End Sub
 Sub UnSelectCurrentArea()
     Dim Area As Range
     Dim RR As Range
-    
+
     For Each Area In Selection.Areas
         If Application.Intersect(Area, ActiveCell) Is Nothing Then
             If RR Is Nothing Then
@@ -193,9 +193,9 @@ Sub CopyHyperlinkToClipboard()
 ' Add reference to %systemroot%\System32\FM20.dll
     Dim a As String
     Dim Obj As New DataObject
-    
+
     a = Selection.Hyperlinks(1).Address
-    
+
     Obj.SetText a
     Obj.PutInClipboard
 End Sub
@@ -297,9 +297,9 @@ End Sub
 Sub Swap2Rows()
     Dim r As Integer
     Dim S1, S2 As String
-    
+
     r = Selection.Row
-    
+
     Selection.EntireRow.Insert
     S1 = CStr(r) + ":" + CStr(r)
     S2 = CStr(r + 2) + ":" + CStr(r + 2)
@@ -319,24 +319,24 @@ Sub ZoomTo()
     On Error GoTo TheError
     Dim PercentageStr As String
     Dim PercentageNum As Integer
-    
+
     PercentageStr = InputBox("Enter zoom percentage:", , ActiveWindow.Zoom)
-    
+
     If PercentageStr = vbNullString Then
         Exit Sub
     End If
-    
+
     PercentageNum = PercentageStr
-    
+
     If PercentageNum < 10 Then
         PercentageNum = 10
     ElseIf PercentageNum > 400 Then
         PercentageNum = 400
     End If
-    
+
     ActiveWindow.Zoom = PercentageNum
     GoTo TheEnd
-    
+
 TheError:
     MsgBox "Input Error. Try again and enter a correct number (10-500)."
     Exit Sub
@@ -384,25 +384,25 @@ End Sub
 Sub BuildField1()
     Dim S, F As String
     Dim StartPos, EndPos As Integer
-    
+
     S = Cells(7, 11).FormulaR1C1
     StartPos = InStr(4, S, "[")
     EndPos = InStr(7, S, "]")
-    
+
     F = "=Exported!R[" _
         + CStr(CInt(Mid(S, StartPos + 1, EndPos - StartPos - 1)) - 1) _
         + "]C"
-    
+
     Cells(8, 11).FormulaR1C1 = F
 End Sub
 
 Sub BuildField2()
     Dim F As String
-    
+
     F = "=R[-5]C=Exported!R[" _
         + CStr(CInt(Cells(10, 2).Value) - 7) _
         + "]C"
-    
+
     Cells(7, 1).FormulaR1C1 = F
 End Sub
 
@@ -414,20 +414,20 @@ Sub BuildField1ver2()
     Dim S, ResultFormula, r As String
     Dim i, length As Integer
     Dim cols As Integer
-    
+
     cols = 18
-    
+
     r = Cells(9, 2).Value
-    
+
     For i = 1 To cols
         S = Cells(4, i).FormulaR1C1
-        
+
         ' 1. Compare values.
         '
         'ResultFormula = Replace(S, "[-3]", "[-4]", 1, 1)
         'ResultFormula = Replace(ResultFormula, "[-3]", R, 1, 1)
         'Cells(6, i).FormulaR1C1 = ResultFormula
-        
+
         ' 2. Copy values.
         '
         length = Len(S)
@@ -441,7 +441,7 @@ End Sub
 
 Function AllAreTrue(rng As Range) As Boolean
     Dim cell As Range
-    
+
     AllAreTrue = True
     For Each cell In rng
         If cell.Value = False Then
@@ -468,7 +468,7 @@ End Sub
 
 
 Sub CopyCellValueToClipboard2()
-    ' Ctrl + È
+    ' Ctrl+–π
     Call CopyCellValueToClipboard
 End Sub
 
@@ -516,7 +516,7 @@ Private Sub Worksheet_Change(ByVal Target As Range)
     Dim KeyCells As Range
 
     Set KeyCells = Range("D2:D2")
-    
+
     If Not Application.Intersect(KeyCells, Range(Target.Address)) Is Nothing Then
         Dim strFilter As String
         strFilter = "*" & [D2] & "*"
@@ -547,7 +547,7 @@ Sub ListSheets()
             r = r + 1
         End If
     Next ws
-    
+
     ''' Selecting last cell or created list.
     'Cells(r - 1, c).Select
     'Range(Cells(rStart, c), Cells(r - 1, c)).Select
@@ -574,9 +574,9 @@ Sub NewSheet()
     Dim currentActive As Integer
 
     currentActive = ActiveSheet.Index
-    
+
     Sheets.Add
-        
+
     Sheets(currentActive).Move After:=Sheets(currentActive + 1)
 End Sub
 
@@ -589,14 +589,14 @@ End Function
 Function Matches(r As Range, pattern As String)
 ' Add reference to the 'Microsoft VBScript Regular Expressions'
     Dim regEx As New regexp
-    
+
     With regEx
         .Global = True
         ' .MultiLine = True
         .IgnoreCase = False
         .pattern = pattern
     End With
-    
+
     Matches = regEx.Test(r.Text)
 End Function
 
@@ -612,7 +612,7 @@ Sub CombineSheets()
     Sheets(2).Activate
     Range("A1").EntireRow.Select
     Selection.Copy Destination:=Sheets(1).Range("A1")
-    
+
     For J = 2 To Sheets.Count
         Sheets(J).Activate
         Range("A1").Select
@@ -628,12 +628,12 @@ Sub MoveSheetsToOtherBook()
     Dim s As Worksheet
     Dim c, cDest As Integer
     Dim dest As String
-    
+
     dest = InputBox("Enter destination workbook name:")
     cDest = Workbooks(dest).Worksheets.Count
-    
+
     c = ActiveWorkbook.Worksheets.Count
-    
+
     For Each s In ActiveWorkbook.Worksheets
         s.Move After:=Workbooks(dest).Sheets(cDest)
         cDest = cDest + 1
@@ -651,12 +651,12 @@ End Function
 
 
 Sub CopyCellAddress()
-    ' Ctrl + m
+    ' Ctrl+m
     Dim fullAddress As String
     Dim MyData As Object
-    
+
     Set MyData = New DataObject
-    
+
     fullAddress = "'[" + ActiveWorkbook.Name + "]" _
         + ActiveSheet.Name + "'!" + ActiveCell.Address(ReferenceStyle:=xlR1C1)
     'ActiveCell.Address(ReferenceStyle:=xlR1C1)
@@ -666,6 +666,6 @@ End Sub
 
 
 Sub CopyCellAddress2()
-    ' Ctrl + u
+    ' Ctrl+u
     Call CopyCellAddress
 End Sub
